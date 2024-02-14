@@ -1,3 +1,86 @@
+/*
+===================================
+STANDARD VALUES
+===================================
+*/
+
 body {
-  background-color: red;
+  color: white;
+  background-color: black;
+}
+
+main {
+  display: flex;
+}
+
+li {
+  list-style: none;
+  padding: 0;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+button {
+  cursor: pointer;
+  background-color: purple;
+}
+
+button img {
+  width: 1.75rem;
+}
+
+/*
+===================================
+UTILITY CLASSES
+===================================
+*/
+
+/*
+===================================
+HEADER
+===================================
+*/
+
+header {
+  background-color: #1f2023;
+}
+
+header .container {
+  max-width: 95%;
+  padding: 1.5rem 0;
+}
+
+header ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header img {
+  width: 3.75rem;
+}
+
+header li a {
+  color: white;
+  text-decoration: none;
+}
+
+/*
+===================================
+TASK
+===================================
+*/
+
+.task {
+  display: flex;
+  align-items: center;
+}
+
+.task-text {
+  background-color: white;
+  color: black;
 }

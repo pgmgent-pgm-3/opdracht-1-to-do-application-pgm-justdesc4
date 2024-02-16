@@ -30,7 +30,7 @@
     <main>
         <section class="side-menu">
             <div class="container">
-                <h1>Categories</h1>
+                <h2>Categories</h2>
                 <nav>
                     <ul>
                         <li>
@@ -47,7 +47,7 @@
                 </nav>
             </div>
         </section>
-        <section>
+        <section class="main-content">
             <div class="container">
                 <div>
                     <h1>We've got things to do!</h1>
@@ -64,41 +64,39 @@
                         Example task
                     -->
                     <article class="task">
-                        <button>
+                        <button class="done">
                             <img src="./images/v-icon.svg" alt="V icon">
                         </button>
-                        <div class="task-text">
+                        <div class="task__text">
                             <p>
                                 Working for programming 3
                             </p>
                         </div>
-                        <button>
+                        <button class="delete">
                             <img src="./images/delete-icon.svg" alt="Delete icon">
                         </button>
-                        <button>
+                        <button class="edit">
                             <img src="./images/edit-icon.svg" alt="Edit icon">
                         </button>
                     </article>
                 </div>
-                <div>
-                    <h1>Things you've done!</h1>
-                    <div class="finished-tasks">
+                    <div class="tasks finished-tasks">
+                        <h1>Things you've done!</h1>
                     <!--JAVASCRIPT-->
                     <!--
                     Example task
                     -->
-                    <article class="finished-task">
-                        <div class="finished-task-text">
+                    <article class="task finished-task">
+                        <div class="task__text finished-task__text">
                             <p>
                                 Working for programming 3
                             </p>
                         </div>
-                        <button>
+                        <button class="delete">
                             <img src="./images/delete-icon.svg" alt="Delete icon">
                         </button>
                     </article>
                     </div>
-                </div>
             </div>
         </section>
     </main>

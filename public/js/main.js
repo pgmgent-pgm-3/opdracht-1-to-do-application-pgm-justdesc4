@@ -48,6 +48,7 @@
   // REGISTER LISTENERS
 
   function registerListeners() {
+    // ADD Task
     $form.addEventListener("submit", (e) => {
       e.preventDefault();
       const $formInput = document.querySelector("input").value;
@@ -55,6 +56,12 @@
       tasks.push($formInput);
       localStorage.setItem("tasks", tasks.join(","));
       buildUI();
+
+      // REMOVE task
+
+      // EDIT task
+
+      // DONE task
     });
   }
 

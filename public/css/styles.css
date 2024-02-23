@@ -149,6 +149,17 @@ SIDE-MENU
   padding-left: 1.5rem;
 }
 
+.side-menu.default .categories li:first-child,
+.side-menu.household .categories li:last-child {
+  background-color: #262533;
+  border-left: 0.2rem solid #7b69ee;
+}
+
+.side-menu.default .categories li:first-child a,
+.side-menu.household .categories li:last-child a {
+  color: #7b69ee;
+}
+
 /*
 ===================================
 MAIN CONTENT

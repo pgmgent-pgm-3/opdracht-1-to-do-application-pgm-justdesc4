@@ -3,7 +3,7 @@ import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
 import { create } from "express-handlebars";
-import { home } from "./controllers/home.js";
+import { home } from "./controllers/controller.js";
 import handlebarshelpers from "./lib/handlebarshelpers.js";
 
 const app = express();

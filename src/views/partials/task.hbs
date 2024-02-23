@@ -1,0 +1,29 @@
+{{#if (done)}}
+  <article class="task finished-task">
+    <div class="task__text finished-task__text">
+      <p>
+        Working for programming 3
+      </p>
+    </div>
+    <button class="delete">
+      <img src="./images/delete-icon.svg" alt="Delete icon" />
+    </button>
+  </article>
+{{else}}
+  <article class="task">
+    <button class="done">
+      <img src="./images/v-icon.svg" alt="V icon" />
+    </button>
+    <div class="task__text">
+      <p>
+        {{task}}
+      </p>
+    </div>
+    <button class="delete">
+      <img src="./images/delete-icon.svg" alt="Delete icon" />
+    </button>
+    <button class="edit">
+      <img src="./images/edit-icon.svg" alt="Edit icon" />
+    </button>
+  </article>
+{{/if}}

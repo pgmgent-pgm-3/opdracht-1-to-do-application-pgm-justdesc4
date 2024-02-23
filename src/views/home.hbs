@@ -18,16 +18,20 @@
             </div>
             <div id="tasks" class="tasks">
                 {{#each tasks}}
-                    {{#unless this.done}}
-                        {{> task this}}
-                    {{/unless}}
+                    {{#if (isCategoryDefault this.category)}}
+                        {{#unless this.done}}
+                            {{> task this}}
+                        {{/unless}}
+                    {{/if}}
                 {{/each}}
             </div>
             <div id="finishedTasks" class="tasks finished-tasks">
             <h1>Things you've done!</h1>
                 {{#each tasks}}
-                    {{#if this.done}}
-                        {{> task-finished this}}
+                    {{#if (isCategoryDefault this.category)}}
+                        {{#if this.done}}
+                            {{> task-finished this}}
+                        {{/if}}
                     {{/if}}
                 {{/each}}
             </div>

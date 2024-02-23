@@ -14,12 +14,7 @@ export default {
       <img src="./images/edit-icon.svg" alt="Edit" />
       </button>`;
   },
-  ifCategoryDefault: function (options, category) {
-    if (category === "Default") {
-      console.log(options.fn(this));
-      return options.fn(this);
-    } else {
-      return options.inverse(this);
-    }
+  isCategoryDefault: function (category) {
+    return category === "Default";
   },
 };

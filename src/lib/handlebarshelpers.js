@@ -17,4 +17,7 @@ export default {
   isCategoryDefault: function (category) {
     return category === "Default";
   },
+  isCategoryHousehold: function (category) {
+    return category === "Household";
+  },
 };

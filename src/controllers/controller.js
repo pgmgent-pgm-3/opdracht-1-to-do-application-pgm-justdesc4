@@ -7,3 +7,7 @@ import tasks from "../data/data.js";
 export const home = (req, res) => {
   res.render("home", { tasks });
 };
+
+export const household = (req, res) => {
+  res.render("household", { tasks });
+};

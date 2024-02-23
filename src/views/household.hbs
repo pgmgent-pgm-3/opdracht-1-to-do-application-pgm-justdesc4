@@ -1,0 +1,40 @@
+<header>
+    {{> header}}
+</header>
+<main>
+    <section class="side-menu">
+        {{> sidebar}}
+    </section>
+    <section class="main-content">
+        <div class="container">
+            <div>
+                <h1>We've got things to do!</h1>
+                <form action="submit" id="form">
+                    <input type="text" placeholder="what is your task?">
+                    <button>
+                        <img src="./images/plus-icon.svg" alt="Plus icon">
+                    </button>
+                </form>
+            </div>
+            <div id="tasks" class="tasks">
+                {{#each tasks}}
+                    {{#if (isCategoryHousehold this.category)}}
+                        {{#unless this.done}}
+                            {{> task this}}
+                        {{/unless}}
+                    {{/if}}
+                {{/each}}
+            </div>
+            <div id="finishedTasks" class="tasks finished-tasks">
+            <h1>Things you've done!</h1>
+                {{#each tasks}}
+                    {{#if (isCategoryHousehold this.category)}}
+                        {{#if this.done}}
+                            {{> task-finished this}}
+                        {{/if}}
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </section>
+</main>

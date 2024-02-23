@@ -58,6 +58,11 @@ button img {
   width: 1.5rem;
 }
 
+.task,
+.finished-tasks {
+  margin-bottom: 1rem;
+}
+
 /*
 ===================================
 UTILITY CLASSES

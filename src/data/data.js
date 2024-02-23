@@ -12,7 +12,7 @@ export default [
     id: 2,
     task: "Take out the trash",
     category: "Household",
-    done: false,
+    done: true,
     deleted: false,
   },
   {

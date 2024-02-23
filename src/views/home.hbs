@@ -17,13 +17,19 @@
                 </form>
             </div>
             <div id="tasks" class="tasks">
-                {{#ifCategoryDefault}}
-                    {{#each tasks}}
+                {{#each tasks}}
+                    {{#unless this.done}}
                         {{> task this}}
-                    {{/each}}
-                {{else}}
-                    {{> task this}}
-                {{/ifCategoryDefault}}
+                    {{/unless}}
+                {{/each}}
+            </div>
+            <div id="finishedTasks" class="tasks finished-tasks">
+            <h1>Things you've done!</h1>
+                {{#each tasks}}
+                    {{#if this.done}}
+                        {{> task-finished this}}
+                    {{/if}}
+                {{/each}}
             </div>
         </div>
     </section>

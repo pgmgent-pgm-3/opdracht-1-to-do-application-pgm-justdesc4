@@ -7,15 +7,7 @@
     </section>
     <section class="main-content">
         <div class="container">
-            <div>
-                <h1>We've got things to do!</h1>
-                <form action="submit" id="form">
-                    <input type="text" placeholder="what is your task?">
-                    <button>
-                        <img src="./images/plus-icon.svg" alt="Plus icon">
-                    </button>
-                </form>
-            </div>
+            {{> form}}
             <div id="tasks" class="tasks">
                 {{#each tasks}}
                     {{#if (isCategoryHousehold this.category)}}

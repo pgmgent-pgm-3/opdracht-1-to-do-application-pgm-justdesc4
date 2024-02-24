@@ -1,5 +1,3 @@
-// Data hier en uitrenderen met handlebars
-
 export default [
   {
     id: 1,
@@ -19,7 +17,7 @@ export default [
     id: 3,
     task: "Buy groceries",
     category: "Default",
-    done: false,
+    done: true,
     deleted: false,
   },
   {
@@ -40,7 +38,7 @@ export default [
     id: 6,
     task: "Pay bills",
     category: "Default",
-    done: false,
+    done: true,
     deleted: false,
   },
   {

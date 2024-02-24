@@ -1,23 +1,23 @@
 export default {
-  doneButton: function () {
+  doneButton: () => {
     return `<button class="done">
       <img src="./images/v-icon.svg" alt="Done" />
       </button>`;
   },
-  deleteButton: function () {
+  deleteButton: () => {
     return `<button class="delete">
       <img src="./images/delete-icon.svg" alt="Delete" />
       </button>`;
   },
-  editButton: function () {
+  editButton: () => {
     return `<button class="edit">
       <img src="./images/edit-icon.svg" alt="Edit" />
       </button>`;
   },
-  isCategoryDefault: function (category) {
+  isCategoryDefault: (category) => {
     return category === "Default";
   },
-  isCategoryHousehold: function (category) {
+  isCategoryHousehold: (category) => {
     return category === "Household";
   },
 };

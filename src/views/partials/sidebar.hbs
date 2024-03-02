@@ -2,16 +2,13 @@
   <h2>Categories</h2>
   <nav>
     <ul class="categories">
-      <li>
-        <a href="/">
-          Default
-        </a>
-      </li>
-      <li>
-        <a href="/household">
-          Household
-        </a>
-      </li>
+      {{#each categories}}
+        <li>
+          <a href="{{this.link}}">
+            {{this.category}}
+          </a>
+        </li>
+      {{/each}}
     </ul>
   </nav>
 </div>

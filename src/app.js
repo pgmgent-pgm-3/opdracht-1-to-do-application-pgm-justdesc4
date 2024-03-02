@@ -6,8 +6,12 @@ import { create } from "express-handlebars";
 import { home } from "./controllers/controller.js";
 import { household } from "./controllers/controller.js";
 import handlebarshelpers from "./lib/handlebarshelpers.js";
+import bodyParser from "body-parser";
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const hbs = create({
   helpers: handlebarshelpers,

@@ -1,10 +1,8 @@
 import knex from "../lib/Knex.js";
 import { Model } from "objection";
 
-// instantiate the model
 Model.knex(knex);
 
-// define the NavigationItem model
 class Task extends Model {
   static get tableName() {
     return "tasks";
@@ -14,10 +12,10 @@ class Task extends Model {
     return "id";
   }
 
-  static get jsonSchema() {
+  static get json() {
     return {
       type: "object",
-      required: ["label", "url"],
+      required: ["task", "category"],
       properties: {
         id: { type: "integer" },
         task: { type: "string", minLength: 1, maxLength: 255 },

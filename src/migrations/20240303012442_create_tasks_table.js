@@ -1,3 +1,5 @@
+import knex from "knex";
+
 const tableName = "tasks";
 
 export function up(knex) {

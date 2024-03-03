@@ -32,14 +32,17 @@ export const createTask = async (req, res) => {
 };
 
 export const updateTask = async (req, res) => {
+  const { id } = req.params;
+  const { done, deleted } = req.body;
   try {
-    const { id } = req.params;
     const task = await Task.query().findById(id);
     if (!task) {
       return res.status(404).json({ message: "Task not found!" });
     }
-    const updatedTask = await Task.query().patchAndFetchById(id, req.body);
-    res.status(200).json(updatedTask);
+    task.done = done;
+    task.deleted = deleted;
+    await task.$query().patch();
+    res.status(200).json(task);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

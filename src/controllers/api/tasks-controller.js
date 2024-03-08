@@ -12,7 +12,7 @@ export const getTasks = async (req, res) => {
 export const getTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const task = await Task.query().findById(id);
+    const task = await Task.query().findById(id).withGraphFetched("category");
     if (!task) {
       return res.status(404).json({ message: "Task not found!" });
     }

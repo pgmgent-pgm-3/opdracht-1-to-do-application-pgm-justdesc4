@@ -6,9 +6,9 @@ export function up(knex) {
   return knex.schema.createTable(tableName, function (table) {
     table.increments("id").primary();
     table.string("task").notNullable();
-    table.string("category").notNullable();
     table.boolean("done").notNullable();
-    table.boolean("deleted").notNullable();
+    table.integer("category_id").unsigned().notNullable();
+    table.foreign("category_id").references("categories.id");
   });
 }
 

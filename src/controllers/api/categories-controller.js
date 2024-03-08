@@ -12,7 +12,9 @@ export const getCategories = async (req, res) => {
 export const getCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await Category.query().findById(id);
+    const category = await Category.query()
+      .findById(id)
+      .withGraphFetched("tasks");
     if (!category) {
       return res.status(404).json({ message: "Category not found!" });
     }

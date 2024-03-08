@@ -22,5 +22,6 @@ export const page = async (req, res) => {
     return;
   }
 
+  // Verlopig niet dinamisch, later enkel default en tasks worden gerenderd ahv params slug
   res.render("household", { tasks, categories });
 };

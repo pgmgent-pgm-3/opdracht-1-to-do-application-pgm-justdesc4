@@ -14,8 +14,7 @@ export default {
       <img src="./images/edit-icon.svg" alt="Edit" />
       </button>`;
   },
-  eq: (v1, v2) => {
-    console.log(`Comparing ${v1} and ${v2}`);
-    return v1 === v2;
+  eq: (a, b) => {
+    return a === b;
   },
 };

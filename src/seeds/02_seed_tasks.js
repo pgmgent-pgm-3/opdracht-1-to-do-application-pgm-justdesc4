@@ -20,13 +20,13 @@ const seed = async function (knex) {
       id: 3,
       task: "Buy groceries",
       done: true,
-      category_id: 1,
+      category_id: 3,
     },
     {
       id: 4,
       task: "Walk the dog",
       done: false,
-      category_id: 1,
+      category_id: 3,
     },
     {
       id: 5,
@@ -38,31 +38,31 @@ const seed = async function (knex) {
       id: 6,
       task: "Pay bills",
       done: true,
-      category_id: 1,
+      category_id: 3,
     },
     {
       id: 7,
       task: "Call mom",
       done: false,
-      category_id: 1,
+      category_id: 3,
     },
     {
       id: 8,
       task: "Finish coding assignment",
       done: false,
-      category_id: 1,
+      category_id: 3,
     },
     {
       id: 9,
       task: "Go for a run",
       done: false,
-      category_id: 1,
+      category_id: 3,
     },
     {
       id: 10,
       task: "Read a book",
       done: false,
-      category_id: 1,
+      category_id: 3,
     },
   ]);
 };

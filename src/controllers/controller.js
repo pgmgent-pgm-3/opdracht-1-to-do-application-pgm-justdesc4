@@ -20,14 +20,13 @@ export const page = async (req, res) => {
   const categories = await Category.query();
   const category = await Category.query().findOne({ link });
 
-  const activeCategory = category.id;
-
   if (!category) {
     res.status(404).send("Page not found");
     return;
   }
 
   const tasks = await Task.query().where({ category_id: category.id });
+  const activeCategory = category.id;
 
   res.render("default", {
     tasks,

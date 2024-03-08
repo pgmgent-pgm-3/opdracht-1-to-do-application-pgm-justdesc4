@@ -3,11 +3,11 @@
   <nav>
     <ul class="categories">
       {{#each categories}}
-        <li>
-          <a href="{{this.link}}">
-            {{this.category}}
-          </a>
-        </li>
+          <li>
+            <a {{#if (eq this.id @root.activeCategory)}}class="page-pointer"{{/if}} href="{{this.link}}">
+              {{this.category}}
+            </a>
+          </li>
       {{/each}}
     </ul>
   </nav>

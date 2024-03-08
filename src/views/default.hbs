@@ -2,7 +2,7 @@
     {{> header}}
 </header>
 <main>
-    <section class="side-menu household">
+    <section class="side-menu default">
         {{> sidebar}}
     </section>
     <section class="main-content">
@@ -10,21 +10,17 @@
             {{> form}}
             <div id="tasks" class="tasks">
                 {{#each tasks}}
-                    {{#if (isCategoryHousehold this.category)}}
                         {{#unless this.done}}
                             {{> task this}}
                         {{/unless}}
-                    {{/if}}
                 {{/each}}
             </div>
             <div id="finishedTasks" class="tasks finished-tasks">
             <h1>Things you've done!</h1>
                 {{#each tasks}}
-                    {{#if (isCategoryHousehold this.category)}}
                         {{#if this.done}}
                             {{> task-finished this}}
                         {{/if}}
-                    {{/if}}
                 {{/each}}
             </div>
         </div>

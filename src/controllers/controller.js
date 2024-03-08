@@ -9,19 +9,30 @@ import Category from "../models/Category.js";
 export const home = async (req, res) => {
   const tasks = await Task.query();
   const categories = await Category.query();
-  res.render("home", { tasks, categories });
+
+  const activeCategory = 1;
+
+  res.render("default", { tasks, categories, activeCategory });
 };
 
 export const page = async (req, res) => {
-  const tasks = await Task.query();
+  const { link } = req.params;
   const categories = await Category.query();
-  const pageData = await Category.query().findOne({ link: req.params.link });
+  const category = await Category.query().findOne({ link });
 
-  if (!pageData) {
+  const activeCategory = category.id;
+
+  if (!category) {
     res.status(404).send("Page not found");
     return;
   }
 
-  // Verlopig niet dinamisch, later enkel default en tasks worden gerenderd ahv params slug
-  res.render("household", { tasks, categories });
+  const tasks = await Task.query().where({ category_id: category.id });
+
+  res.render("default", {
+    tasks,
+    categories,
+    category,
+    activeCategory,
+  });
 };

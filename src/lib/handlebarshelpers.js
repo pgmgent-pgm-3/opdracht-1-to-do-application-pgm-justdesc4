@@ -1,6 +1,6 @@
 export default {
   doneButton: (taskId) => {
-    return `<form method="POST" action="/tasks/${taskId}">
+    return `<form method="POST" action="/tasks/{{@root.activeCategory}}/${taskId}">
     <input type="hidden" name="method" value="PUT">
     <input type="hidden" name="done" value="true">
       <button type="submit" class="done">
@@ -9,7 +9,7 @@ export default {
     </form>`;
   },
   deleteButton: (taskId) => {
-    return `<form method="POST" action="/tasks/${taskId}">
+    return `<form method="POST" action="/tasks/{{@root.activeCategory}}/${taskId}">
       <input type="hidden" name="method" value="DELETE">
       <button type="submit" class="delete">
         <img src="./images/delete-icon.svg" alt="Delete" />
@@ -17,7 +17,7 @@ export default {
     </form>`;
   },
   editButton: (taskId) => {
-    return `<form method="POST" action="/tasks/${taskId}">
+    return `<form method="POST" action="/tasks/{{@root.activeCategory}}/${taskId}">
     <input type="hidden" name="method" value="PUT">
       <button type="submit" class="edit">
         <img src="./images/edit-icon.svg" alt="Edit" />

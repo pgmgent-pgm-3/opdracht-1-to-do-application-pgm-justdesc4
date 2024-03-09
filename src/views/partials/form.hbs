@@ -1,6 +1,6 @@
 <div>
   <h1>We've got things to do!</h1>
-  <form action="/tasks" method="POST" id="form">
+  <form action="/tasks/{{@root.activeCategory}}" method="POST" id="form">
     <div class="form__input">
       <input
         type="text"

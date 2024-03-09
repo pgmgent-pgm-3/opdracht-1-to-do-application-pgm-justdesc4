@@ -1,4 +1,5 @@
 import Task from "../../models/Task.js";
+import Category from "../../models/Category.js";
 
 export const getTasks = async (req, res) => {
   try {
@@ -24,8 +25,9 @@ export const getTask = async (req, res) => {
 
 export const createTask = async (req, res) => {
   try {
-    const taskData = { category_id: 1, done: false, ...req.body };
-    const task = await Task.query().insert(taskData);
+    const categoryId = req.params.link;
+    const taskData = { category_id: categoryId, done: false, ...req.body };
+    await Task.query().insert(taskData);
     res.redirect("back");
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -48,8 +48,7 @@ app.put("/api/task", updateTask);
 app.delete("/api/task/:id", deleteTask);
 
 // Handle tasks form
-app.post("/tasks", handlePostTasks);
-app.post("/tasks/:id", handlePostTasks);
+app.post("/tasks/:category/:id", handlePostTasks);
 
 // Categories API
 app.get("/api/categories", getCategories);

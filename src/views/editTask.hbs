@@ -1,0 +1,15 @@
+<header>
+    {{> header}}
+</header>
+<main>
+    <section class="main-content">
+        <div class="container">
+            <h2>Edit Task</h2>
+            <form method="POST" action="/tasks/edit/{{task.id}}">
+    <input type="hidden" name="method" value="PUT">
+    <input type="text" name="task" value="{{task.task}}" required>
+      {{#editButton}}{{/editButton}}
+    </form>
+        </div>
+    </section>
+</main>

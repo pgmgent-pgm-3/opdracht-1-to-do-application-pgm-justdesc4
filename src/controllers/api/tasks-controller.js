@@ -1,5 +1,4 @@
 import Task from "../../models/Task.js";
-import Category from "../../models/Category.js";
 
 export const getTasks = async (req, res) => {
   try {
@@ -25,7 +24,7 @@ export const getTask = async (req, res) => {
 
 export const createTask = async (req, res) => {
   try {
-    const categoryId = req.params.link;
+    const categoryId = req.params.categoryId;
     const taskData = { category_id: categoryId, done: false, ...req.body };
     await Task.query().insert(taskData);
     res.redirect("back");
@@ -35,10 +34,10 @@ export const createTask = async (req, res) => {
 };
 
 export const updateTask = async (req, res) => {
-  const { id } = req.params;
-  const { done, deleted } = req.body;
+  const taskId = req.params.taskId;
+  const { done, deleted, task: taskDescription } = req.body;
   try {
-    const task = await Task.query().findById(id);
+    const task = await Task.query().findById(taskId);
     if (!task) {
       return res.status(404).json({ message: "Task not found!" });
     }
@@ -47,6 +46,9 @@ export const updateTask = async (req, res) => {
     }
     if (deleted !== undefined) {
       task.deleted = deleted;
+    }
+    if (taskDescription !== undefined) {
+      task.task = taskDescription;
     }
     await task.$query().patch();
     res.redirect("back");
@@ -57,7 +59,7 @@ export const updateTask = async (req, res) => {
 
 export const deleteTask = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.params.taskId;
     const task = await Task.query().findById(id);
     if (!task) {
       return res.status(404).json({ message: "Task not found!" });

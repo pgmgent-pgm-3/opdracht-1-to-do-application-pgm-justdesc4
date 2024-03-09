@@ -6,5 +6,7 @@
     </p>
   </div>
   {{#deleteButton this.id}}{{/deleteButton}}
-  {{#editButton this.id}}{{/editButton}}
+  <a href="/tasks/edit/{{this.id}}" class="edit">
+    <img src="/images/edit-icon.svg" alt="Edit" />
+  </a>
 </article>

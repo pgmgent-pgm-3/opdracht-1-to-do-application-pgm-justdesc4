@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { create } from "express-handlebars";
-import { home, page } from "./controllers/controller.js";
+import { home, page, editPage } from "./controllers/controller.js";
 import {
   getTask,
   getTasks,
@@ -39,6 +39,7 @@ app.use(express.static("public"));
 // Pages
 app.get("/", home);
 app.get("/:link", page);
+app.get("/tasks/edit/:taskId", editPage);
 
 // Tasks API
 app.get("/api/task/:id", getTask);
@@ -48,7 +49,8 @@ app.put("/api/task", updateTask);
 app.delete("/api/task/:id", deleteTask);
 
 // Handle tasks form
-app.post("/tasks/:category/:id", handlePostTasks);
+app.post("/tasks/:categoryId/:taskId", handlePostTasks);
+app.post("tasks/edit/:taskId", handlePostTasks);
 
 // Categories API
 app.get("/api/categories", getCategories);

@@ -10,9 +10,9 @@ export const home = async (req, res) => {
   const tasks = await Task.query();
   const categories = await Category.query();
 
-  const activeCategory = 1;
+  const categoryId = 1;
 
-  res.render("default", { tasks, categories, activeCategory });
+  res.render("default", { tasks, categories, categoryId });
 };
 
 export const page = async (req, res) => {
@@ -26,12 +26,21 @@ export const page = async (req, res) => {
   }
 
   const tasks = await Task.query().where({ category_id: category.id });
-  const activeCategory = category.id;
+  const categoryId = category.id;
 
   res.render("default", {
     tasks,
     categories,
     category,
-    activeCategory,
+    categoryId,
   });
+};
+
+export const editPage = async (req, res) => {
+  const taskId = req.params.taskId;
+  const task = await Task.query().findById(taskId);
+  if (!task) {
+    return res.status(404).json({ message: "Task not found!" });
+  }
+  res.render("editTask", { task });
 };

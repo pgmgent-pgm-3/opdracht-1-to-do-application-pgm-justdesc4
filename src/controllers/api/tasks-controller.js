@@ -24,8 +24,9 @@ export const getTask = async (req, res) => {
 
 export const createTask = async (req, res) => {
   try {
-    const task = await Task.query().insert(req.body);
-    res.status(201).json(task);
+    const taskData = { ...req.body, done: false };
+    const task = await Task.query().insert(taskData);
+    res.redirect("back");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -59,5 +60,21 @@ export const deleteTask = async (req, res) => {
     res.status(200).json({ message: "Task deleted successfully!" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const handlePostTasks = async (req, res) => {
+  const method = req.body.method;
+
+  switch (method) {
+    case "delete":
+      await deleteTask(req, res);
+      break;
+    case "update":
+      await updateTask(req, res);
+      break;
+    default:
+      await createTask(req, res);
+      break;
   }
 };

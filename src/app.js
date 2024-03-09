@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
+
 import { create } from "express-handlebars";
 import { home, page } from "./controllers/controller.js";
 import {
@@ -10,6 +11,7 @@ import {
   createTask,
   updateTask,
   deleteTask,
+  handlePostTasks,
 } from "./controllers/api/tasks-controller.js";
 import {
   getCategories,
@@ -43,6 +45,9 @@ app.get("/api/tasks", getTasks);
 app.post("/api/task", createTask);
 app.put("/api/task", updateTask);
 app.delete("/api/task/:id", deleteTask);
+
+// Handle tasks form
+app.post("/tasks", handlePostTasks);
 
 // Categories
 app.get("/api/categories", getCategories);

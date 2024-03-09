@@ -5,17 +5,15 @@
       <input
         type="text"
         name="task"
-        placeholder="what is your task?"
+        placeholder="What is your task?"
         required
       />
       <button>
         <img src="./images/plus-icon.svg" alt="Plus icon" />
       </button>
     </div>
-    <p>
-      Choose a category:
-    </p>
     <select name="category_id" required>
+      <option disabled selected>Choose a category:</option>
       {{#each categories}}
         <option value="{{this.id}}">{{this.category}}</option>
       {{/each}}

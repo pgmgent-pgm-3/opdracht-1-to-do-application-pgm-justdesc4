@@ -23,3 +23,16 @@ export const getCategory = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const createCategory = async (req, res) => {
+  try {
+    const category = {
+      link: req.body.category,
+      ...req.body,
+    };
+    await Category.query().insert(category);
+    res.redirect("back");
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

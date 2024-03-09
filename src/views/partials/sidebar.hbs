@@ -11,4 +11,15 @@
       {{/each}}
     </ul>
   </nav>
+  <form action="/categories" method="POST">
+    <input
+        type="text"
+        name="category"
+        placeholder="Add a new category."
+        required
+      />
+      <button>
+        <img src="./images/plus-icon.svg" alt="Plus icon" />
+      </button>
+  </form>
 </div>

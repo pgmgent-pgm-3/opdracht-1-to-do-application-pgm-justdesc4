@@ -1,10 +1,10 @@
 <article class="task">
-  {{#doneButton}}{{/doneButton}}
+  {{#doneButton this.id}}{{/doneButton}}
   <div class="task__text">
     <p>
       {{task}}
     </p>
   </div>
-  {{#deleteButton}}{{/deleteButton}}
-  {{#editButton}}{{/editButton}}
+  {{#deleteButton this.id}}{{/deleteButton}}
+  {{#editButton this.id}}{{/editButton}}
 </article>

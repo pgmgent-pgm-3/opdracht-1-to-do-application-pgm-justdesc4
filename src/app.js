@@ -16,6 +16,7 @@ import {
 import {
   getCategories,
   getCategory,
+  createCategory,
 } from "./controllers/api/categories-controller.js";
 import handlebarshelpers from "./lib/handlebarshelpers.js";
 import bodyParser from "body-parser";
@@ -39,7 +40,7 @@ app.use(express.static("public"));
 app.get("/", home);
 app.get("/:link", page);
 
-// Tasks
+// Tasks API
 app.get("/api/task/:id", getTask);
 app.get("/api/tasks", getTasks);
 app.post("/api/task", createTask);
@@ -48,10 +49,14 @@ app.delete("/api/task/:id", deleteTask);
 
 // Handle tasks form
 app.post("/tasks", handlePostTasks);
+app.post("/tasks/:id", handlePostTasks);
 
-// Categories
+// Categories API
 app.get("/api/categories", getCategories);
 app.get("/api/category/:id", getCategory);
+
+// Handle categories form
+app.post("/categories", createCategory);
 
 // Port
 app.listen(process.env.PORT, () => {

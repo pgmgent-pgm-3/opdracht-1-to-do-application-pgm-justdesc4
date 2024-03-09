@@ -24,7 +24,7 @@ export const getTask = async (req, res) => {
 
 export const createTask = async (req, res) => {
   try {
-    const taskData = { ...req.body, done: false };
+    const taskData = { category_id: 1, done: false, ...req.body };
     const task = await Task.query().insert(taskData);
     res.redirect("back");
   } catch (error) {
@@ -40,10 +40,14 @@ export const updateTask = async (req, res) => {
     if (!task) {
       return res.status(404).json({ message: "Task not found!" });
     }
-    task.done = done;
-    task.deleted = deleted;
+    if (done !== undefined) {
+      task.done = done;
+    }
+    if (deleted !== undefined) {
+      task.deleted = deleted;
+    }
     await task.$query().patch();
-    res.status(200).json(task);
+    res.redirect("back");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -57,7 +61,7 @@ export const deleteTask = async (req, res) => {
       return res.status(404).json({ message: "Task not found!" });
     }
     await Task.query().deleteById(id);
-    res.status(200).json({ message: "Task deleted successfully!" });
+    res.redirect("back");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -67,10 +71,10 @@ export const handlePostTasks = async (req, res) => {
   const method = req.body.method;
 
   switch (method) {
-    case "delete":
+    case "DELETE":
       await deleteTask(req, res);
       break;
-    case "update":
+    case "PUT":
       await updateTask(req, res);
       break;
     default:

@@ -18,8 +18,11 @@ body {
 }
 
 main {
-  display: flex;
   overflow: hidden;
+}
+
+.default {
+  display: flex;
 }
 
 li {
@@ -264,6 +267,10 @@ TASK
   height: 2.45rem;
 }
 
+.task .edit img {
+  margin-top: 0.25rem;
+}
+
 .task .edit:hover {
   background-color: hsl(213, 86%, 56%);
 }
@@ -276,4 +283,47 @@ FINISHED TASKS
 
 .finished-tasks {
   margin-top: 5rem;
+}
+
+/*
+===================================
+EDIT TASK PAGE
+===================================
+*/
+
+.edit-task .container {
+  width: 70rem;
+  max-width: 100%;
+  text-align: center;
+  margin: 12rem auto;
+}
+
+.edit-task h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.edit-task form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-task form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.edit-task form button {
+  width: 5rem;
+  border-radius: 0.5rem;
+}
+
+.edit-task form button:hover {
+  background-color: hsl(248, 79%, 49%);
+}
+
+.edit-task form button img {
+  margin: 0 auto;
 }

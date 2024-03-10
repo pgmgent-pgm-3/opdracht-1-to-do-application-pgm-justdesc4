@@ -2,8 +2,8 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
-
 import { create } from "express-handlebars";
+
 import { home, page, editPage } from "./controllers/controller.js";
 import {
   getTask,
@@ -18,6 +18,7 @@ import {
   getCategory,
   createCategory,
 } from "./controllers/api/categories-controller.js";
+
 import handlebarshelpers from "./lib/handlebarshelpers.js";
 import bodyParser from "body-parser";
 

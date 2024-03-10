@@ -35,7 +35,7 @@ export const createTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
   const taskId = req.params.taskId;
-  const { done, deleted, task: taskDescription } = req.body;
+  const { done, task: taskDescription } = req.body;
   try {
     const task = await Task.query().findById(taskId);
     if (!task) {
@@ -44,11 +44,11 @@ export const updateTask = async (req, res) => {
     if (done !== undefined) {
       task.done = done;
     }
-    if (deleted !== undefined) {
-      task.deleted = deleted;
-    }
     if (taskDescription !== undefined) {
       task.task = taskDescription;
+      await task.$query().patch();
+      // i want an "alert("Updated succesfully!")" message here but it's impossible in server side ??? :/
+      return res.redirect("/");
     }
     await task.$query().patch();
     res.redirect("back");

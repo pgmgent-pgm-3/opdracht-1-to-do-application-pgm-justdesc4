@@ -4,12 +4,12 @@
 <main>
     <section class="main-content">
         <div class="container">
-            <h2>Edit Task</h2>
+            <h1>Edit Task</h1>
             <form method="POST" action="/tasks/edit/{{task.id}}">
-    <input type="hidden" name="method" value="PUT">
-    <input type="text" name="task" value="{{task.task}}" required>
-      {{#editButton}}{{/editButton}}
-    </form>
+                <input type="hidden" name="method" value="PUT">
+                <input type="text" name="task" value="{{task.task}}" required>
+                {{#editButton}}{{/editButton}}
+            </form>
         </div>
     </section>
 </main>

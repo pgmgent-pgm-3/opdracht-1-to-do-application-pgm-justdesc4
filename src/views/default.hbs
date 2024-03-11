@@ -1,6 +1,11 @@
 <header>
     {{> header}}
 </header>
+{{#if message}}
+    <div class="message">
+        <p>{{message}}</p>
+    </div>
+{{/if}}
 <main class="default">
     <section class="side-menu default">
         {{> sidebar}}

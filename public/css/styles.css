@@ -327,3 +327,17 @@ EDIT TASK PAGE
 .edit-task form button img {
   margin: 0 auto;
 }
+
+/*
+===================================
+OVERLAY MESSAGE
+===================================
+*/
+
+.message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: red;
+}

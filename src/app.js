@@ -4,20 +4,23 @@ import dotenv from "dotenv";
 dotenv.config();
 import { create } from "express-handlebars";
 
-import { home, page, editPage } from "./controllers/controller.js";
+// API Controllers
 import {
   getTask,
   getTasks,
   createTask,
   updateTask,
   deleteTask,
-  handlePostTasks,
 } from "./controllers/api/tasks-controller.js";
 import {
   getCategories,
   getCategory,
-  createCategory,
 } from "./controllers/api/categories-controller.js";
+
+// Default Controllers
+import { home, page, editPage } from "./controllers/controller.js";
+import { handlePostTasks } from "./controllers/tasks-controller.js";
+import { createCategory } from "./controllers/categories-controller.js";
 
 import handlebarshelpers from "./lib/handlebarshelpers.js";
 import bodyParser from "body-parser";
@@ -46,7 +49,7 @@ app.get("/tasks/edit/:taskId", editPage);
 app.get("/api/task/:id", getTask);
 app.get("/api/tasks", getTasks);
 app.post("/api/task", createTask);
-app.put("/api/task", updateTask);
+app.put("/api/task/:id", updateTask);
 app.delete("/api/task/:id", deleteTask);
 
 // Handle tasks form

@@ -11,8 +11,9 @@ export const home = async (req, res) => {
   const categories = await Category.query();
 
   const categoryId = 1;
+  const message = req.query.msg;
 
-  res.render("default", { tasks, categories, categoryId });
+  res.render("default", { tasks, categories, categoryId, message });
 };
 
 export const page = async (req, res) => {
@@ -27,12 +28,14 @@ export const page = async (req, res) => {
 
   const tasks = await Task.query().where({ category_id: category.id });
   const categoryId = category.id;
+  const message = req.query.msg;
 
   res.render("default", {
     tasks,
     categories,
     category,
     categoryId,
+    message,
   });
 };
 

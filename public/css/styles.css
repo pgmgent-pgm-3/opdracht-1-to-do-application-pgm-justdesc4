@@ -74,6 +74,24 @@ UTILITY CLASSES
 ===================================
 */
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .container {
   margin: 0 auto;
 }
@@ -99,6 +117,7 @@ UTILITY CLASSES
 
 .hidden {
   display: none;
+  animation: fade-out 0.5s;
 }
 
 /*
@@ -139,11 +158,11 @@ SIDE-MENU
 
 .side-menu {
   background-color: #1f2023;
-  max-height: 100vh;
 }
 
 .side-menu .container {
   width: 20rem;
+  height: 100vh;
   padding: 2rem 0;
 }
 
@@ -344,8 +363,11 @@ OVERLAY MESSAGE
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: black;
-  border: 0.2rem solid hsl(248, 79%, 49%);
+  border: 0.2rem solid #7b69ee;
+  border-radius: 1rem;
   z-index: 2;
+  font-size: 1.25rem;
+  animation: fade-in 0.5s;
 }
 
 .message .container {
@@ -355,14 +377,14 @@ OVERLAY MESSAGE
 
 .close {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 0.5rem;
+  right: 0.5rem;
   width: 1.5rem;
   cursor: pointer;
 }
 
 .close svg {
-  color: hsl(248, 79%, 49%);
+  color: #7b69ee;
 }
 
 .overlay-bg {
@@ -373,4 +395,5 @@ OVERLAY MESSAGE
   height: 100vh;
   background-color: hsla(0, 0%, 0%, 0.714);
   z-index: 1;
+  animation: fade-in 0.5s;
 }

@@ -26,29 +26,45 @@ export const createTask = async (req, res) => {
   try {
     const categoryId = req.body.category_id || req.params.categoryId;
     const taskData = { category_id: categoryId, done: false, ...req.body };
+
     await Task.query().insert(taskData);
     res.redirect("back");
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    const url = new URL(req.headers.referer);
+    url.searchParams.set(
+      "msg",
+      "Sorry, the task could not be added! Please try again."
+    );
+    return res.redirect(url.toString());
   }
 };
 
 export const updateTask = async (req, res) => {
   const taskId = req.params.taskId;
   const { done, task: taskDescription } = req.body;
+  const url = new URL(req.headers.referer);
   try {
     const task = await Task.query().findById(taskId);
     if (!task) {
-      return res.status(404).json({ message: "Task not found!" });
+      url.searchParams.set(
+        "msg",
+        "Sorry we can't find the task. Please try again!"
+      );
+      return res.redirect(url.toString());
     }
     if (done !== undefined) {
       task.done = done;
 
       try {
         await task.$query().patch();
-        return res.redirect("/?msg=Updated successfully!");
+        url.searchParams.set("msg", "The task has been updated succesfully!");
+        return res.redirect(url.toString());
       } catch (error) {
-        return res.redirect("/?msg=Update failed!");
+        url.searchParams.set(
+          "msg",
+          "Sorry, the task could not be updated! Please try again."
+        );
+        return res.redirect(url.toString());
       }
     }
     if (taskDescription !== undefined) {
@@ -56,9 +72,11 @@ export const updateTask = async (req, res) => {
 
       try {
         await task.$query().patch();
-        return res.redirect("/?msg=Updated successfully!");
+        return res.redirect("/?msg=The task has been updated succesfully!");
       } catch (error) {
-        return res.redirect("/?msg=Update failed!");
+        return res.redirect(
+          "/?msg=Sorry, the task could not be updated! Please try again."
+        );
       }
     }
   } catch (error) {
@@ -70,13 +88,23 @@ export const deleteTask = async (req, res) => {
   try {
     const id = req.params.taskId;
     const task = await Task.query().findById(id);
+    const url = new URL(req.headers.referer);
     if (!task) {
-      return res.status(404).json({ message: "Task not found!" });
+      url.searchParams.set(
+        "msg",
+        "Sorry we can't find the task. Please try again!"
+      );
+      return res.redirect(url.toString());
     }
     await Task.query().deleteById(id);
-    res.redirect("back");
+    url.searchParams.set("msg", "The task has been deleted successfully!");
+    return res.redirect(url.toString());
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    url.searchParams.set(
+      "msg",
+      "There was a problem while deleting the task. Please try again!"
+    );
+    return res.redirect(url.toString());
   }
 };
 

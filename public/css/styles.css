@@ -97,6 +97,10 @@ UTILITY CLASSES
   color: #7b69ee;
 }
 
+.hidden {
+  display: none;
+}
+
 /*
 ===================================
 HEADER
@@ -339,5 +343,34 @@ OVERLAY MESSAGE
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: red;
+  background-color: black;
+  border: 0.2rem solid hsl(248, 79%, 49%);
+  z-index: 2;
+}
+
+.message .container {
+  position: relative;
+  padding: 7rem 10rem;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.5rem;
+  cursor: pointer;
+}
+
+.close svg {
+  color: hsl(248, 79%, 49%);
+}
+
+.overlay-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: hsla(0, 0%, 0%, 0.714);
+  z-index: 1;
 }

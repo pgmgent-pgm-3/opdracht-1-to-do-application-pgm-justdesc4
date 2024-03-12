@@ -43,16 +43,24 @@ export const updateTask = async (req, res) => {
     }
     if (done !== undefined) {
       task.done = done;
+
+      try {
+        await task.$query().patch();
+        return res.redirect("/?msg=Updated successfully!");
+      } catch (error) {
+        return res.redirect("/?msg=Update failed!");
+      }
     }
     if (taskDescription !== undefined) {
       task.task = taskDescription;
-      await task.$query().patch();
-      // i want an "alert("Updated succesfully!")" message here but it's impossible in server side ??? :/
-      return res.redirect("/?msg=Updated succesfully!");
-      // msg opvangen in contoller.js => in res.render home dan renderen
+
+      try {
+        await task.$query().patch();
+        return res.redirect("/?msg=Updated successfully!");
+      } catch (error) {
+        return res.redirect("/?msg=Update failed!");
+      }
     }
-    await task.$query().patch();
-    res.redirect("back");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

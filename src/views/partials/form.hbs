@@ -1,5 +1,10 @@
 <div>
   <h1>We've got things to do!</h1>
+  {{#if flash.message}}
+    <div class="alert {{flash.type}}">
+      {{flash.message}}
+    </div>
+  {{/if}}
   <form action="/tasks/{{@root.categoryId}}/id" method="POST" id="form">
     <div class="form__input">
       <input
@@ -9,7 +14,7 @@
         required
       />
       <button>
-        <img src="./images/plus-icon.svg" alt="Plus icon" />
+        <img src="/images/plus-icon.svg" alt="Plus icon" />
       </button>
     </div>
     <select name="category_id" required>

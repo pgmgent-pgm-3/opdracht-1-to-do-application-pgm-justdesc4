@@ -12,14 +12,18 @@ export const home = async (req, res) => {
 
   const categoryId = 1;
   const message = req.query.msg;
+  const flash = req.flash || "";
 
-  res.render("default", { tasks, categories, categoryId, message });
+  res.render("default", { tasks, categories, categoryId, message, flash });
 };
 
 export const page = async (req, res) => {
-  const { link } = req.params;
+  const link = req.params.link || req.params.categoryId || "";
   const categories = await Category.query();
-  const category = await Category.query().findOne({ link });
+  const category =
+    (await Category.query().findOne({ link })) ||
+    (await Category.query().findById(link));
+  const categoryId = category.id;
 
   if (!category) {
     res.status(404).send("Page not found");
@@ -27,8 +31,8 @@ export const page = async (req, res) => {
   }
 
   const tasks = await Task.query().where({ category_id: category.id });
-  const categoryId = category.id;
   const message = req.query.msg;
+  const flash = req.flash || "";
 
   res.render("default", {
     tasks,
@@ -36,6 +40,7 @@ export const page = async (req, res) => {
     category,
     categoryId,
     message,
+    flash,
   });
 };
 

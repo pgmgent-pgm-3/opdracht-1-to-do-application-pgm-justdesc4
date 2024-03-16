@@ -4,7 +4,7 @@
     <ul class="categories">
       {{#each categories}}
           <li>
-            <a {{#if (eq this.id @root.categoryId)}}class="page-pointer"{{/if}} href="{{this.link}}">
+            <a {{#if (eq this.id @root.categoryId)}}class="page-pointer"{{/if}} href="/{{this.link}}">
               {{this.category}}
             </a>
           </li>

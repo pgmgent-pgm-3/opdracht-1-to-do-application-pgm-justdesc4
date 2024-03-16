@@ -25,6 +25,8 @@ import { createCategory } from "./controllers/categories-controller.js";
 import handlebarshelpers from "./lib/handlebarshelpers.js";
 import bodyParser from "body-parser";
 
+import tasksValidator from "./middleware/validation/tasks-validator.js";
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -53,7 +55,7 @@ app.put("/api/task/:id", updateTask);
 app.delete("/api/task/:id", deleteTask);
 
 // Handle tasks form
-app.post("/tasks/:categoryId/:taskId", handlePostTasks);
+app.post("/tasks/:categoryId/:taskId", tasksValidator, handlePostTasks, page);
 app.post("tasks/edit/:taskId", handlePostTasks);
 
 // Categories API

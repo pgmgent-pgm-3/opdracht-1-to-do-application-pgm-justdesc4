@@ -1,5 +1,11 @@
 import Task from "../models/Task.js";
+import { validationResult } from "express-validator";
 
+/**
+ * ============================================
+ * Get all tasks
+ * ============================================
+ */
 export const getTasks = async (req, res) => {
   try {
     const tasks = await Task.query();
@@ -9,6 +15,11 @@ export const getTasks = async (req, res) => {
   }
 };
 
+/**
+ * ============================================
+ * Get task by id
+ * ============================================
+ */
 export const getTask = async (req, res) => {
   try {
     const { id } = req.params;
@@ -22,27 +33,57 @@ export const getTask = async (req, res) => {
   }
 };
 
-export const createTask = async (req, res) => {
+/**
+ * ============================================
+ * Create a new task
+ * ============================================
+ */
+export const createTask = async (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    req.formErrorFields = {};
+    errors.array().forEach((error) => {
+      req.formErrorFields[error.path] = error.msg;
+    });
+
+    req.flash = {
+      type: "danger",
+      message: "We found some errors in your post. Please try again!",
+    };
+
+    return next();
+  }
+
   try {
     const categoryId = req.body.category_id || req.params.categoryId;
     const taskData = { category_id: categoryId, done: false, ...req.body };
 
     await Task.query().insert(taskData);
-    res.redirect("back");
   } catch (error) {
-    const url = new URL(req.headers.referer);
-    url.searchParams.set(
-      "msg",
-      "Sorry, the task could not be added! Please try again."
-    );
-    return res.redirect(url.toString());
+    console.log(error);
   }
+
+  req.flash = {
+    type: "success",
+    message: "The task has been created successfully!",
+  };
+
+  req.body = {};
+
+  return next();
 };
 
+/**
+ * ============================================
+ * Update a task
+ * ============================================
+ */
 export const updateTask = async (req, res) => {
   const taskId = req.params.taskId;
   const { done, task: taskDescription } = req.body;
   const url = new URL(req.headers.referer);
+
   try {
     const task = await Task.query().findById(taskId);
     if (!task) {
@@ -84,6 +125,11 @@ export const updateTask = async (req, res) => {
   }
 };
 
+/**
+ * ============================================
+ * Delete a task
+ * ============================================
+ */
 export const deleteTask = async (req, res) => {
   try {
     const id = req.params.taskId;
@@ -108,7 +154,12 @@ export const deleteTask = async (req, res) => {
   }
 };
 
-export const handlePostTasks = async (req, res) => {
+/**
+ * ============================================
+ * Handle the tasks form
+ * ============================================
+ */
+export const handlePostTasks = async (req, res, next) => {
   const method = req.body.method;
 
   switch (method) {
@@ -119,7 +170,7 @@ export const handlePostTasks = async (req, res) => {
       await updateTask(req, res);
       break;
     default:
-      await createTask(req, res);
+      await createTask(req, res, next);
       break;
   }
 };

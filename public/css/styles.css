@@ -365,6 +365,7 @@ OVERLAY MESSAGE
   background-color: black;
   border: 0.2rem solid #7b69ee;
   border-radius: 1rem;
+  box-shadow: 0 0.2rem 0.7rem hsla(0, 0%, 0%, 0.2);
   z-index: 2;
   font-size: 1.25rem;
   animation: fade-in 0.5s;
@@ -387,6 +388,10 @@ OVERLAY MESSAGE
   color: #7b69ee;
 }
 
+.close:hover svg {
+  color: #584baf;
+}
+
 .overlay-bg {
   position: fixed;
   top: 0;
@@ -396,4 +401,25 @@ OVERLAY MESSAGE
   background-color: hsla(0, 0%, 0%, 0.714);
   z-index: 1;
   animation: fade-in 0.5s;
+}
+
+/*******************************************************/
+
+.alert {
+  padding: 1rem;
+  margin-bottom: 20px;
+  background-color: white;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  border: 1px solid black;
+}
+
+.alert.success {
+  border-color: green;
+  color: green;
+}
+
+.alert.danger {
+  border-color: red;
+  color: red;
 }

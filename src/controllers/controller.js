@@ -6,6 +6,11 @@ import Category from "../models/Category.js";
 //   response.sendFile("index.html");
 // };
 
+/**
+ * ============================================
+ * Render home page, category pages
+ * ============================================
+ */
 export const page = async (req, res) => {
   const link = req.params.link || req.params.categoryId || "";
   const categories = await Category.query();
@@ -37,6 +42,11 @@ export const page = async (req, res) => {
   });
 };
 
+/**
+ * ============================================
+ * Render edit task page
+ * ============================================
+ */
 export const editPage = async (req, res) => {
   const taskId = req.params.taskId;
   const task = await Task.query().findById(taskId);

@@ -1,5 +1,10 @@
 import Category from "../../models/Category.js";
 
+/**
+ * ============================================
+ * Get all categories
+ * ============================================
+ */
 export const getCategories = async (req, res) => {
   try {
     const categories = await Category.query();
@@ -9,6 +14,11 @@ export const getCategories = async (req, res) => {
   }
 };
 
+/**
+ * ============================================
+ * Get category by id
+ * ============================================
+ */
 export const getCategory = async (req, res) => {
   try {
     const { id } = req.params;

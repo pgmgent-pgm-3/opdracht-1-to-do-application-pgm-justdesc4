@@ -22,9 +22,11 @@ import { page, editPage } from "./controllers/controller.js";
 import { handlePostTasks } from "./controllers/tasks-controller.js";
 import { createCategory } from "./controllers/categories-controller.js";
 
+// Lib
 import handlebarshelpers from "./lib/handlebarshelpers.js";
 import bodyParser from "body-parser";
 
+// Middleware
 import tasksValidator from "./middleware/validation/tasks-validator.js";
 
 const app = express();
@@ -46,7 +48,7 @@ app.use(express.static("public"));
 app.get("/", page);
 app.get("/:link", page);
 app.get("/tasks/edit/:taskId", editPage);
-app.get("/tasks/:categoryId/:taskId", page);
+app.get("/tasks/:categoryId/:taskId", page); // For the form handling as i can't redirect back
 
 // Tasks API
 app.get("/api/task/:id", getTask);

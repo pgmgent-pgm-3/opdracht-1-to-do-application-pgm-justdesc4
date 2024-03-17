@@ -1,6 +1,7 @@
 import { body } from "express-validator";
 
 export default [
+  // Create a new task
   body("task")
     .notEmpty()
     .withMessage("Sorry, the task is required!")

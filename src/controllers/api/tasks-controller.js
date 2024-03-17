@@ -1,5 +1,10 @@
 import Task from "../../models/Task.js";
 
+/**
+ * ============================================
+ * Get all tasks
+ * ============================================
+ */
 export const getTasks = async (req, res) => {
   try {
     const tasks = await Task.query();
@@ -9,6 +14,11 @@ export const getTasks = async (req, res) => {
   }
 };
 
+/**
+ * ============================================
+ * Get task by id
+ * ============================================
+ */
 export const getTask = async (req, res) => {
   try {
     const { id } = req.params;
@@ -22,6 +32,11 @@ export const getTask = async (req, res) => {
   }
 };
 
+/**
+ * ============================================
+ * Create a new task
+ * ============================================
+ */
 export const createTask = async (req, res) => {
   try {
     const task = await Task.query().insert(req.body);
@@ -31,6 +46,11 @@ export const createTask = async (req, res) => {
   }
 };
 
+/**
+ * ============================================
+ * Update a task
+ * ============================================
+ */
 export const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
@@ -45,6 +65,11 @@ export const updateTask = async (req, res) => {
   }
 };
 
+/**
+ * ============================================
+ * Delete a task
+ * ============================================
+ */
 export const deleteTask = async (req, res) => {
   try {
     const { id } = req.params;

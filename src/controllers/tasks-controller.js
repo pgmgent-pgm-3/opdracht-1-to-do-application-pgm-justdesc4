@@ -49,7 +49,10 @@ export const createTask = async (req, res, next) => {
 
     req.flash = {
       type: "danger",
-      message: "We found some errors in your post. Please try again!",
+      message: errors
+        .array()
+        .map((error) => error.msg)
+        .join(", "),
     };
 
     return next();

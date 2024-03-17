@@ -18,7 +18,7 @@ import {
 } from "./controllers/api/categories-controller.js";
 
 // Default Controllers
-import { home, page, editPage } from "./controllers/controller.js";
+import { page, editPage } from "./controllers/controller.js";
 import { handlePostTasks } from "./controllers/tasks-controller.js";
 import { createCategory } from "./controllers/categories-controller.js";
 
@@ -43,9 +43,10 @@ app.set("views", path.join(path.resolve("src"), "views"));
 app.use(express.static("public"));
 
 // Pages
-app.get("/", home);
+app.get("/", page);
 app.get("/:link", page);
 app.get("/tasks/edit/:taskId", editPage);
+app.get("/tasks/:categoryId/:taskId", page);
 
 // Tasks API
 app.get("/api/task/:id", getTask);

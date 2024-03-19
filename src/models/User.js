@@ -22,8 +22,6 @@ class User extends Model {
         lastname: { type: "string" },
         email: { type: "string" },
         password: { type: "string" },
-        created_at: { type: "timestamp" },
-        updated_at: { type: "timestamp" },
       },
     };
   }

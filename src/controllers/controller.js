@@ -55,3 +55,21 @@ export const editPage = async (req, res) => {
   }
   res.render("editTask", { task });
 };
+
+/**
+ * ============================================
+ * Render register page
+ * ============================================
+ */
+export const registerPage = (req, res) => {
+  res.render("register");
+};
+
+/**
+ * ============================================
+ * Render login page
+ * ============================================
+ */
+export const loginPage = (req, res) => {
+  res.render("login");
+};

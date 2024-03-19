@@ -18,16 +18,23 @@ import {
 } from "./controllers/api/categories-controller.js";
 
 // Default Controllers
-import { page, editPage } from "./controllers/controller.js";
-import { handlePostTasks } from "./controllers/tasks-controller.js";
-import { createCategory } from "./controllers/categories-controller.js";
+import {
+  page,
+  editPage,
+  registerPage,
+  loginPage,
+} from "./controllers/controller.js";
+import { handlePostTasks } from "./controllers/tasksController.js";
+import { createCategory } from "./controllers/categoriesController.js";
+import { register } from "./controllers/authController.js";
 
 // Lib
 import handlebarshelpers from "./lib/handlebarshelpers.js";
 import bodyParser from "body-parser";
 
 // Middleware
-import tasksValidator from "./middleware/validation/tasks-validator.js";
+import tasksValidator from "./middleware/validation/tasksValidator.js";
+import registerValidator from "./middleware/validation/authRegisterValidator.js";
 
 const app = express();
 
@@ -46,6 +53,8 @@ app.use(express.static("public"));
 
 // Pages
 app.get("/", page);
+app.get("/register", registerPage);
+app.get("/login", loginPage);
 app.get("/:link", page);
 app.get("/tasks/edit/:taskId", editPage);
 app.get("/tasks/:categoryId/:taskId", page); // For the form handling as i can't redirect back
@@ -67,6 +76,9 @@ app.get("/api/category/:id", getCategory);
 
 // Handle categories form
 app.post("/categories", createCategory);
+
+// Register form
+app.post("/register", registerValidator, register, loginPage);
 
 // Port
 app.listen(process.env.PORT, () => {

@@ -169,6 +169,12 @@ header li a {
   text-decoration: none;
 }
 
+header nav {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
 /*
 ===================================
 SIDE-MENU
@@ -420,4 +426,26 @@ OVERLAY MESSAGE
   background-color: hsla(0, 0%, 0%, 0.714);
   z-index: 1;
   animation: fade-in 0.5s;
+}
+
+/*
+===================================
+LOGIN PAGE
+===================================
+*/
+
+.login .container {
+  max-width: 50rem;
+  margin: 10rem auto;
+  text-align: center;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login form input {
+  padding: 1rem 2rem;
 }

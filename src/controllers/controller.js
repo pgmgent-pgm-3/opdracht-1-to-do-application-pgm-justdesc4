@@ -51,9 +51,12 @@ export const editPage = async (req, res) => {
   const taskId = req.params.taskId;
   const task = await Task.query().findById(taskId);
   if (!task) {
-    return res.status(404).json({ message: "Task not found!" });
+    return res.status(404).send("Task not found!");
   }
-  res.render("editTask", { task });
+
+  const flash = req.flash || "";
+
+  res.render("editTask", { task, flash });
 };
 
 /**

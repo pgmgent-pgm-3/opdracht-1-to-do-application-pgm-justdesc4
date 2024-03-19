@@ -82,13 +82,14 @@ export const createTask = async (req, res, next) => {
  * Update a task
  * ============================================
  */
-export const updateTask = async (req, res) => {
+export const updateTask = async (req, res, next) => {
   const taskId = req.params.taskId;
   const { done, task: taskDescription } = req.body;
   const url = new URL(req.headers.referer);
 
   try {
     const task = await Task.query().findById(taskId);
+
     if (!task) {
       url.searchParams.set(
         "msg",
@@ -96,6 +97,8 @@ export const updateTask = async (req, res) => {
       );
       return res.redirect(url.toString());
     }
+
+    // Set task done
     if (done !== undefined) {
       task.done = done;
 
@@ -111,16 +114,34 @@ export const updateTask = async (req, res) => {
         return res.redirect(url.toString());
       }
     }
+
+    // Update task description
     if (taskDescription !== undefined) {
       task.task = taskDescription;
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        req.formErrorFields = {};
+        errors.array().forEach((error) => {
+          req.formErrorFields[error.path] = error.msg;
+        });
+
+        req.flash = {
+          type: "danger",
+          message: errors
+            .array()
+            .map((error) => error.msg)
+            .join(", "),
+        };
+
+        return res.render("editTask", { task, flash: req.flash });
+      }
 
       try {
         await task.$query().patch();
         return res.redirect("/?msg=The task has been updated succesfully!");
       } catch (error) {
-        return res.redirect(
-          "/?msg=Sorry, the task could not be updated! Please try again."
-        );
+        console.log(error);
       }
     }
   } catch (error) {
@@ -138,21 +159,27 @@ export const deleteTask = async (req, res) => {
     const id = req.params.taskId;
     const task = await Task.query().findById(id);
     const url = new URL(req.headers.referer);
+
     if (!task) {
       url.searchParams.set(
         "msg",
         "Sorry we can't find the task. Please try again!"
       );
+
       return res.redirect(url.toString());
     }
+
     await Task.query().deleteById(id);
+
     url.searchParams.set("msg", "The task has been deleted successfully!");
+
     return res.redirect(url.toString());
   } catch (error) {
     url.searchParams.set(
       "msg",
       "There was a problem while deleting the task. Please try again!"
     );
+
     return res.redirect(url.toString());
   }
 };
@@ -170,7 +197,7 @@ export const handlePostTasks = async (req, res, next) => {
       await deleteTask(req, res);
       break;
     case "PUT":
-      await updateTask(req, res);
+      await updateTask(req, res, next);
       break;
     default:
       await createTask(req, res, next);

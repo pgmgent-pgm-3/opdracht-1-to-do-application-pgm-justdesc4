@@ -5,6 +5,11 @@
     <section class="edit-task">
         <div class="container">
             <h1>Edit Task</h1>
+            {{#if flash.message}}
+                <div class="alert {{flash.type}}">
+                    {{flash.message}}
+                </div>
+            {{/if}}
             <form method="POST" action="/tasks/edit/{{task.id}}">
                 <input type="hidden" name="method" value="PUT">
                 <input type="text" name="task" value="{{task.task}}" required>

@@ -1,4 +1,3 @@
-// Import the models and the bcrypt library.
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 
@@ -7,16 +6,18 @@ import bcrypt from "bcrypt";
  * Register form
  * ============================================
  */
-
-// Register form and save password hashed to the database, then redirect to the login page.
 export const register = async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
 
   try {
-    const user = await User.query().where("email", email).first();
+    const existingUser = await User.query().where("email", email).first();
 
-    if (user) {
-      return res.status(400).json({ message: "User already exists!" });
+    if (existingUser) {
+      req.flash = {
+        type: "danger",
+        message: "User already exists!",
+      };
+      return res.render("register", { flash: req.flash });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

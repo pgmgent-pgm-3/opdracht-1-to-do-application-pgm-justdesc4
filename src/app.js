@@ -13,11 +13,11 @@ import {
   createTask,
   updateTask,
   deleteTask,
-} from "./controllers/api/tasks-controller.js";
+} from "./controllers/api/tasksController.js";
 import {
   getCategories,
   getCategory,
-} from "./controllers/api/categories-controller.js";
+} from "./controllers/api/categoriesController.js";
 
 // Default Controllers
 import {

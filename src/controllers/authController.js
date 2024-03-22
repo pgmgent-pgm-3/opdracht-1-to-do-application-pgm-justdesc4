@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import { validationResult } from "express-validator";
 
 /**
  * ============================================
@@ -11,12 +12,30 @@ export const register = async (req, res) => {
 
   try {
     const existingUser = await User.query().where("email", email).first();
+    const errors = validationResult(req);
 
     if (existingUser) {
       req.flash = {
         type: "danger",
         message: "User already exists!",
       };
+      return res.render("register", { flash: req.flash });
+    }
+
+    if (!errors.isEmpty()) {
+      req.formErrorFields = {};
+      errors.array().forEach((error) => {
+        req.formErrorFields[error.path] = error.msg;
+      });
+
+      req.flash = {
+        type: "danger",
+        message: errors
+          .array()
+          .map((error) => error.msg)
+          .join(", "),
+      };
+
       return res.render("register", { flash: req.flash });
     }
 

@@ -15,5 +15,5 @@ export default [
   // password
   body("password")
     .isLength({ min: 6 })
-    .withMessage("Password must be at least six characters long."),
+    .withMessage("Password must be at least 6 characters long."),
 ];

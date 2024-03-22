@@ -3,6 +3,8 @@ import path from "path";
 import dotenv from "dotenv";
 dotenv.config();
 import { create } from "express-handlebars";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 // API Controllers
 import {
@@ -26,21 +28,28 @@ import {
 } from "./controllers/controller.js";
 import { handlePostTasks } from "./controllers/tasksController.js";
 import { createCategory } from "./controllers/categoriesController.js";
-import { register } from "./controllers/authController.js";
+import { login, register } from "./controllers/authController.js";
 
 // Lib
 import handlebarshelpers from "./lib/handlebarshelpers.js";
-import bodyParser from "body-parser";
 
 // Middleware
 import tasksValidator from "./middleware/validation/tasksValidator.js";
 import registerValidator from "./middleware/validation/authRegisterValidator.js";
+import loginValidator from "./middleware/validation/authLoginValidator.js";
+import jwtAuth from "./middleware/jwtAuth.js";
 
+// Express
 const app = express();
 
+// Body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Cookie parser
+app.use(cookieParser());
+
+// Handlebars
 const hbs = create({
   helpers: handlebarshelpers,
   extname: "hbs",
@@ -49,13 +58,14 @@ app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", path.join(path.resolve("src"), "views"));
 
+// Static files
 app.use(express.static("public"));
 
 // Pages
-app.get("/", page);
+app.get("/", jwtAuth, page);
 app.get("/register", registerPage);
 app.get("/login", loginPage);
-app.get("/:link", page);
+app.get("/:link", jwtAuth, page);
 app.get("/tasks/edit/:taskId", editPage);
 app.get("/tasks/:categoryId/:taskId", page); // For the form handling as i can't redirect back
 
@@ -79,6 +89,9 @@ app.post("/categories", createCategory);
 
 // Register form
 app.post("/register", registerValidator, register, loginPage);
+
+// Login form
+app.post("/login", loginValidator, login, jwtAuth);
 
 // Port
 app.listen(process.env.PORT, () => {

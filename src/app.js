@@ -28,7 +28,7 @@ import {
 } from "./controllers/controller.js";
 import { handlePostTasks } from "./controllers/tasksController.js";
 import { createCategory } from "./controllers/categoriesController.js";
-import { login, register } from "./controllers/authController.js";
+import { login, register, logout } from "./controllers/authController.js";
 
 // Lib
 import handlebarshelpers from "./lib/handlebarshelpers.js";
@@ -65,6 +65,7 @@ app.use(express.static("public"));
 app.get("/", jwtAuth, page);
 app.get("/register", registerPage);
 app.get("/login", loginPage);
+app.get("/logout", logout);
 app.get("/:link", jwtAuth, page);
 app.get("/tasks/edit/:taskId", editPage);
 app.get("/tasks/:categoryId/:taskId", page); // For the form handling as i can't redirect back

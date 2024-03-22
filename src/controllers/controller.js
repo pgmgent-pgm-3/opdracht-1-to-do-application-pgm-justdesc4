@@ -39,6 +39,7 @@ export const page = async (req, res) => {
     categoryId,
     message,
     flash,
+    loggedIn: req.loggedIn,
   });
 };
 

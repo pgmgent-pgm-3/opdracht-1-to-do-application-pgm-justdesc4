@@ -9,12 +9,18 @@
       </a>
     </li>
     <nav>
-      <li>
-        <a href="/register">Register</a>
-      </li>
-      <li>
-        <a href="/login">Login</a>
-      </li>
+      {{#if loggedIn}}
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+      {{else}}
+        <li>
+          <a href="/register">Register</a>
+        </li>
+        <li id="login">
+          <a href="/login">Login</a>
+        </li>
+      {{/if}}
     </nav>
   </ul>
 </div>

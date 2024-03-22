@@ -33,6 +33,7 @@ export default async (req, res, next) => {
     }
 
     req.user = user;
+    req.loggedIn = true;
 
     return next();
   } catch (e) {

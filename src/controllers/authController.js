@@ -123,3 +123,13 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+/**
+ * ============================================
+ * Logout form
+ * ============================================
+ */
+export const logout = async (req, res) => {
+  res.clearCookie("user");
+  res.redirect("/login");
+};

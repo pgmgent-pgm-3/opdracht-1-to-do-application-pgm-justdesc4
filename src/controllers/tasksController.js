@@ -90,8 +90,9 @@ export const updateTask = async (req, res) => {
   const category = await Category.query().findById(
     parseInt(req.params.categoryId)
   );
+  let redirectLink = "";
   if (category) {
-    const redirectLink = category.link;
+    redirectLink = category.link;
   }
 
   try {
@@ -164,8 +165,9 @@ export const deleteTask = async (req, res) => {
   const category = await Category.query().findById(
     parseInt(req.params.categoryId)
   );
+  let redirectLink = "";
   if (category) {
-    const redirectLink = category.link;
+    redirectLink = category.link;
   }
 
   try {

@@ -1,11 +1,11 @@
 <article class="task">
-  {{#doneButton this.id}}{{/doneButton}}
+  {{#doneButton @root.categoryId this.id}}{{/doneButton}}
   <div class="task__text">
     <p>
       {{task}}
     </p>
   </div>
-  {{#deleteButton this.id}}{{/deleteButton}}
+  {{#deleteButton @root.categoryId this.id}}{{/deleteButton}}
   <a href="/tasks/edit/{{this.id}}" class="edit">
     <img src="/images/edit-icon.svg" alt="Edit" />
   </a>

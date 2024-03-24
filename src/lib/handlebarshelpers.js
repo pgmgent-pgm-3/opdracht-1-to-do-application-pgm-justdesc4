@@ -1,6 +1,6 @@
 export default {
-  doneButton: (taskId) => {
-    return `<form method="POST" action="/tasks/{{@root.categoryId}}/${taskId}">
+  doneButton: (categoryId, taskId) => {
+    return `<form method="POST" action="/tasks/${categoryId}/${taskId}">
     <input type="hidden" name="method" value="PUT">
     <input type="hidden" name="done" value="true">
       <button type="submit" class="done">
@@ -8,8 +8,8 @@ export default {
       </button>
     </form>`;
   },
-  deleteButton: (taskId) => {
-    return `<form method="POST" action="/tasks/{{@root.categoryId}}/${taskId}">
+  deleteButton: (categoryId, taskId) => {
+    return `<form method="POST" action="/tasks/${categoryId}/${taskId}">
       <input type="hidden" name="method" value="DELETE">
       <button type="submit" class="delete">
         <img src="/images/delete-icon.svg" alt="Delete" />

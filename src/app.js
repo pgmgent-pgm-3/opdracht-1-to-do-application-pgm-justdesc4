@@ -62,13 +62,12 @@ app.set("views", path.join(path.resolve("src"), "views"));
 app.use(express.static("public"));
 
 // Pages
-app.get("/", jwtAuth, page);
 app.get("/register", registerPage);
 app.get("/login", loginPage);
 app.get("/logout", logout);
+app.get("/", jwtAuth, page);
 app.get("/:link", jwtAuth, page);
-app.get("/tasks/edit/:taskId", editPage);
-app.get("/tasks/:categoryId/:taskId", page); // For the form handling as i can't redirect back
+app.get("/tasks/edit/:taskId", jwtAuth, editPage);
 
 // Tasks API
 app.get("/api/task/:id", getTask);
@@ -92,7 +91,7 @@ app.post("/categories", createCategory);
 app.post("/register", registerValidator, register, loginPage);
 
 // Login form
-app.post("/login", loginValidator, login, jwtAuth);
+app.post("/login", loginValidator, login);
 
 // Port
 app.listen(process.env.PORT, () => {

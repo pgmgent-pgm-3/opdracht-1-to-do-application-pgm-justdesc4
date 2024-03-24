@@ -1,4 +1,5 @@
 import Task from "../models/Task.js";
+import Category from "../models/Category.js";
 import { validationResult } from "express-validator";
 
 /**
@@ -82,20 +83,24 @@ export const createTask = async (req, res, next) => {
  * Update a task
  * ============================================
  */
-export const updateTask = async (req, res, next) => {
+export const updateTask = async (req, res) => {
   const taskId = req.params.taskId;
   const { done, task: taskDescription } = req.body;
-  const url = new URL(req.headers.referer);
+
+  const category = await Category.query().findById(
+    parseInt(req.params.categoryId)
+  );
+  if (category) {
+    const redirectLink = category.link;
+  }
 
   try {
     const task = await Task.query().findById(taskId);
 
     if (!task) {
-      url.searchParams.set(
-        "msg",
-        "Sorry we can't find the task. Please try again!"
+      return res.redirect(
+        `/${redirectLink}?msg=Sorry we can't find the task. Please try again!`
       );
-      return res.redirect(url.toString());
     }
 
     // Set task done
@@ -104,14 +109,13 @@ export const updateTask = async (req, res, next) => {
 
       try {
         await task.$query().patch();
-        url.searchParams.set("msg", "The task has been updated succesfully!");
-        return res.redirect(url.toString());
-      } catch (error) {
-        url.searchParams.set(
-          "msg",
-          "Sorry, the task could not be updated! Please try again."
+        return res.redirect(
+          `/${redirectLink}?msg=The task has been updated succesfully!`
         );
-        return res.redirect(url.toString());
+      } catch (error) {
+        return res.redirect(
+          `/${redirectLink}?msg=Sorry, the task could not be updated! Please try again.`
+        );
       }
     }
 
@@ -155,32 +159,32 @@ export const updateTask = async (req, res, next) => {
  * ============================================
  */
 export const deleteTask = async (req, res) => {
+  const id = req.params.taskId;
+
+  const category = await Category.query().findById(
+    parseInt(req.params.categoryId)
+  );
+  if (category) {
+    const redirectLink = category.link;
+  }
+
   try {
-    const id = req.params.taskId;
     const task = await Task.query().findById(id);
-    const url = new URL(req.headers.referer);
-
     if (!task) {
-      url.searchParams.set(
-        "msg",
-        "Sorry we can't find the task. Please try again!"
+      return res.redirect(
+        `/${redirectLink}?msg=Sorry we can't find the task. Please try again!`
       );
-
-      return res.redirect(url.toString());
     }
 
     await Task.query().deleteById(id);
 
-    url.searchParams.set("msg", "The task has been deleted successfully!");
-
-    return res.redirect(url.toString());
-  } catch (error) {
-    url.searchParams.set(
-      "msg",
-      "There was a problem while deleting the task. Please try again!"
+    return res.redirect(
+      `/${redirectLink}?msg=The task has been deleted successfully!`
     );
-
-    return res.redirect(url.toString());
+  } catch (error) {
+    return res.redirect(
+      `/${redirectLink}?msg=There was a problem while deleting the task. Please try again!`
+    );
   }
 };
 
@@ -197,7 +201,7 @@ export const handlePostTasks = async (req, res, next) => {
       await deleteTask(req, res);
       break;
     case "PUT":
-      await updateTask(req, res, next);
+      await updateTask(req, res);
       break;
     default:
       await createTask(req, res, next);

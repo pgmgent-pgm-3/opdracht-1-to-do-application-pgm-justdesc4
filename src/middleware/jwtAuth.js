@@ -8,11 +8,16 @@ export default async (req, res, next) => {
     const userToken = req.cookies.user;
 
     if (!userToken) {
+      /* 
+      Idk if i want this, because it looks ugly to users when visit the app for the first time
+
       req.flash = {
         type: "danger",
-        message: "Please login!",
+        message: "Sorry, you need to be logged in to use the app.",
       };
-      return res.render("login", { flash: req.flash });
+
+      */
+      return res.render("login" /*,{ flash: req.flash }*/);
     }
     const userData = jwt.verify(userToken, process.env.TOKEN_SALT);
     if (!userData) {

@@ -57,7 +57,7 @@ export const editPage = async (req, res) => {
 
   const flash = req.flash || "";
 
-  res.render("editTask", { task, flash });
+  res.render("editTask", { task, flash, loggedIn: req.loggedIn });
 };
 
 /**

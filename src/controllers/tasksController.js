@@ -144,9 +144,11 @@ export const updateTask = async (req, res) => {
 
       try {
         await task.$query().patch();
-        return res.redirect("/?msg=The task has been updated succesfully!");
+        return res.redirect(
+          `/${redirectLink}?msg=The task has been updated succesfully!`
+        );
       } catch (error) {
-        console.log(error);
+        return res.render("editTask", { task, flash: "Error!" });
       }
     }
   } catch (error) {

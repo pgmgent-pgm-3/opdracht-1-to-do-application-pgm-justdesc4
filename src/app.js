@@ -77,7 +77,13 @@ app.put("/api/task/:id", updateTask);
 app.delete("/api/task/:id", deleteTask);
 
 // Handle tasks form
-app.post("/tasks/:categoryId/:taskId", tasksValidator, handlePostTasks, page);
+app.post(
+  "/tasks/:categoryId/:taskId",
+  tasksValidator,
+  handlePostTasks,
+  jwtAuth,
+  page
+);
 app.post("tasks/edit/:taskId", tasksValidator, handlePostTasks);
 
 // Categories API

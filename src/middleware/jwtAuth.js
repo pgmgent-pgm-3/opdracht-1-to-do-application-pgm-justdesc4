@@ -7,18 +7,17 @@ export default async (req, res, next) => {
   try {
     const userToken = req.cookies.user;
 
-    if (!userToken) {
-      /* 
-      Idk if i want this, because it looks ugly to users when visit the app for the first time
-
+    if (!userToken && req.path === "/") {
+      return res.render("login");
+    } else if (!userToken) {
       req.flash = {
         type: "danger",
         message: "Sorry, you need to be logged in to use the app.",
       };
 
-      */
-      return res.render("login" /*,{ flash: req.flash }*/);
+      return res.render("login", { flash: req.flash });
     }
+
     const userData = jwt.verify(userToken, process.env.TOKEN_SALT);
     if (!userData) {
       req.flash = {

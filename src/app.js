@@ -18,6 +18,7 @@ import {
   getCategories,
   getCategory,
 } from "./controllers/api/categoriesController.js";
+import { getUser } from "./controllers/api/userController.js";
 
 // Default Controllers
 import {
@@ -103,3 +104,7 @@ app.post("/login", loginValidator, login);
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}.`);
 });
+
+// USER API
+
+app.get("/api/user/:id", getUser);

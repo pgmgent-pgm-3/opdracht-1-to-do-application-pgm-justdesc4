@@ -18,7 +18,7 @@ import {
   getCategories,
   getCategory,
 } from "./controllers/api/categoriesController.js";
-import { getUser } from "./controllers/api/userController.js";
+import { getUsers, getUser } from "./controllers/api/userController.js";
 
 // Default Controllers
 import {
@@ -81,8 +81,8 @@ app.delete("/api/task/:id", deleteTask);
 app.post(
   "/tasks/:categoryId/:taskId",
   tasksValidator,
-  handlePostTasks,
   jwtAuth,
+  handlePostTasks,
   page
 );
 app.post("tasks/edit/:taskId", tasksValidator, handlePostTasks);
@@ -92,7 +92,7 @@ app.get("/api/categories", getCategories);
 app.get("/api/category/:id", getCategory);
 
 // Handle categories form
-app.post("/categories", createCategory);
+app.post("/categories", jwtAuth, createCategory);
 
 // Register form
 app.post("/register", registerValidator, register, loginPage);
@@ -100,11 +100,11 @@ app.post("/register", registerValidator, register, loginPage);
 // Login form
 app.post("/login", loginValidator, login);
 
+// Users API
+app.get("/api/users", getUsers);
+app.get("/api/user/:id", getUser);
+
 // Port
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}.`);
 });
-
-// USER API
-
-app.get("/api/user/:id", getUser);

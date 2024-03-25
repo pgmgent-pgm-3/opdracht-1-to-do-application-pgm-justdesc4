@@ -38,15 +38,11 @@ class Task extends Model {
           to: "categories.id",
         },
       },
-      users: {
-        relation: Model.ManyToManyRelation,
+      user: {
+        relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: "tasks.id",
-          through: {
-            from: "task_user.task_id",
-            to: "task_user.user_id",
-          },
+          from: "tasks.user_id",
           to: "users.id",
         },
       },

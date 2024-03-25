@@ -13,7 +13,7 @@ import Category from "../models/Category.js";
  */
 export const page = async (req, res) => {
   const link = req.params.link || req.params.categoryId || "";
-  const categories = await Category.query();
+  const categories = await Category.query().where({ user_id: req.user.id });
   const category =
     (await Category.query().findOne({ link })) ||
     (await Category.query().findById(link));
@@ -25,13 +25,12 @@ export const page = async (req, res) => {
 
   const categoryId = category.id;
 
-  let tasks = await Task.query()
-    .join("task_user", "tasks.id", "task_user.task_id")
-    .where({ "task_user.user_id": req.user.id, category_id: categoryId });
+  let tasks = await Task.query().where({
+    user_id: req.user.id,
+    category_id: categoryId,
+  });
   if (categoryId === 1) {
-    tasks = await Task.query()
-      .join("task_user", "tasks.id", "task_user.task_id")
-      .where({ "task_user.user_id": req.user.id });
+    tasks = await Task.query().where({ user_id: req.user.id });
   }
   const message = req.query.msg;
   const flash = req.flash || "";

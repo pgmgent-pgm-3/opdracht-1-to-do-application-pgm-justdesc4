@@ -30,15 +30,11 @@ class User extends Model {
   static get relationMappings() {
     return {
       tasks: {
-        relation: Model.ManyToManyRelation,
+        relation: Model.HasManyRelation,
         modelClass: Task,
         join: {
           from: "users.id",
-          through: {
-            from: "task_user.user_id",
-            to: "task_user.task_id",
-          },
-          to: "tasks.id",
+          to: "tasks.user_id",
         },
       },
     };

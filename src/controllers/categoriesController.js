@@ -43,11 +43,15 @@ export const createCategory = async (req, res) => {
   try {
     const category = {
       link: req.body.category,
+      user_id: req.user.id,
       ...req.body,
     };
     await Category.query().insert(category);
-    res.redirect("back");
+    res.redirect(`/${category.link}`);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.redirect(
+      `/?msg=Sorry, we've encountered an error with our server. Please try again!`
+    );
   }
 };

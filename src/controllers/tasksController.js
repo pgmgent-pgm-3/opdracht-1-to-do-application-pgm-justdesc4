@@ -4,38 +4,6 @@ import { validationResult } from "express-validator";
 
 /**
  * ============================================
- * Get all tasks
- * ============================================
- */
-export const getTasks = async (req, res) => {
-  try {
-    const tasks = await Task.query();
-    res.status(200).json(tasks);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-/**
- * ============================================
- * Get task by id
- * ============================================
- */
-export const getTask = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const task = await Task.query().findById(id).withGraphFetched("category");
-    if (!task) {
-      return res.status(404).json({ message: "Task not found!" });
-    }
-    res.status(200).json(task);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-/**
- * ============================================
  * Create a new task
  * ============================================
  */
@@ -61,11 +29,32 @@ export const createTask = async (req, res, next) => {
 
   try {
     const categoryId = req.body.category_id || req.params.categoryId;
-    const taskData = { category_id: categoryId, done: false, ...req.body };
+    const taskData = {
+      category_id: categoryId,
+      done: false,
+      user_id: req.user.id,
+      ...req.body,
+    };
 
-    await Task.query().insert(taskData);
+    let task = await Task.query().findOne({
+      task: taskData.task,
+      user_id: req.user.id,
+    });
+
+    if (!task) {
+      task = await Task.query().insert(taskData);
+    } else {
+      req.flash = {
+        type: "danger",
+        message: "The task already exists!",
+      };
+
+      return next();
+    }
   } catch (error) {
-    console.log(error);
+    res.redirect(
+      `/?msg=Sorry, we've encountered an error with our server. Please try again!`
+    );
   }
 
   req.flash = {

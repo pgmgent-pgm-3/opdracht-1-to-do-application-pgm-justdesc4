@@ -2,6 +2,10 @@
   <h2>Categories</h2>
   <nav>
     <ul class="categories">
+      <li>
+        <a {{#if (eq 1 @root.categoryId)}}class="page-pointer"{{/if}} href="/">
+          Default
+        </a>
       {{#each categories}}
           <li>
             <a {{#if (eq this.id @root.categoryId)}}class="page-pointer"{{/if}} href="/{{this.link}}">

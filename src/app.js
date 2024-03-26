@@ -22,6 +22,7 @@ import { getUsers, getUser } from "./controllers/api/userController.js";
 
 // Default Controllers
 import {
+  home,
   page,
   editPage,
   registerPage,
@@ -66,7 +67,7 @@ app.use(express.static("public"));
 app.get("/register", registerPage);
 app.get("/login", loginPage);
 app.get("/logout", logout);
-app.get("/", jwtAuth, page);
+app.get("/", jwtAuth, home);
 app.get("/:link", jwtAuth, page);
 app.get("/tasks/edit/:taskId", jwtAuth, editPage);
 

@@ -11,18 +11,38 @@ import Category from "../models/Category.js";
  * Render home page, category pages
  * ============================================
  */
-export const page = async (req, res) => {
-  const link = req.params.link || req.params.categoryId || "";
+export const home = async (req, res) => {
   const categories = await Category.query().where({ user_id: req.user.id });
-  const category =
-    (await Category.query().findOne({ link })) ||
-    (await Category.query().findById(link));
+  const tasks = await Task.query().where({ user_id: req.user.id });
+  const message = req.query.msg;
+  const flash = req.flash || "";
+  const categoryId = 1;
 
-  if (!category) {
+  res.render("default", {
+    tasks,
+    categories,
+    categoryId,
+    message,
+    flash,
+    loggedIn: req.loggedIn,
+  });
+};
+
+export const page = async (req, res) => {
+  const link = req.params.link || parseInt(req.params.categoryId);
+  const categories = await Category.query().where({ user_id: req.user.id });
+  let category =
+    (await Category.query()
+      .where({ user_id: req.user.id })
+      .findOne({ link })) ||
+    (await Category.query().where({ user_id: req.user.id }).findById(link));
+
+  if (link === 1) {
+    category = await Category.query().findById(link);
+  } else if (!category) {
     res.status(404).send("Page not found");
     return;
   }
-
   const categoryId = category.id;
 
   let tasks = await Task.query().where({

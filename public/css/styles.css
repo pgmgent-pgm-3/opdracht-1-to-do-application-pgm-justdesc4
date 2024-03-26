@@ -68,6 +68,12 @@ button img,
   margin-bottom: 1rem;
 }
 
+.no-tasks {
+  text-align: center;
+  margin: 5rem 0;
+  margin-bottom: 10rem;
+}
+
 /*
 ===================================
 UTILITY CLASSES

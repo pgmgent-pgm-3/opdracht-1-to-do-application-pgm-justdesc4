@@ -1,6 +1,7 @@
 import knex from "../lib/Knex.js";
 import { Model } from "objection";
 import Task from "./Task.js";
+import Category from "./Category.js";
 
 Model.knex(knex);
 
@@ -35,6 +36,18 @@ class User extends Model {
         join: {
           from: "users.id",
           to: "tasks.user_id",
+        },
+      },
+      categories: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Category,
+        join: {
+          from: "users.id",
+          through: {
+            from: "categories_users.user_id",
+            to: "categories_users.category_id",
+          },
+          to: "categories.id",
         },
       },
     };

@@ -12,8 +12,12 @@ import Category from "../models/Category.js";
  * ============================================
  */
 export const home = async (req, res) => {
-  const categories = await Category.query().where({ user_id: req.user.id });
-  const tasks = await Task.query().where({ user_id: req.user.id });
+  const categories = await Category.query()
+    .join("category_user", "categories.id", "category_user.category_id")
+    .where("category_user.user_id", req.user.id);
+
+  const tasks = await Task.query().where("user_id", req.user.id);
+
   const message = req.query.msg;
   const flash = req.flash || "";
   const categoryId = 1;
@@ -30,12 +34,20 @@ export const home = async (req, res) => {
 
 export const page = async (req, res) => {
   const link = req.params.link || parseInt(req.params.categoryId);
-  const categories = await Category.query().where({ user_id: req.user.id });
+
+  const categories = await Category.query()
+    .join("category_user", "categories.id", "category_user.category_id")
+    .where("category_user.user_id", req.user.id);
+
   let category =
     (await Category.query()
-      .where({ user_id: req.user.id })
+      .join("category_user", "categories.id", "category_user.category_id")
+      .where("category_user.user_id", req.user.id)
       .findOne({ link })) ||
-    (await Category.query().where({ user_id: req.user.id }).findById(link));
+    (await Category.query()
+      .join("category_user", "categories.id", "category_user.category_id")
+      .where("category_user.user_id", req.user.id)
+      .findById(link));
 
   if (link === 1) {
     category = await Category.query().findById(link);

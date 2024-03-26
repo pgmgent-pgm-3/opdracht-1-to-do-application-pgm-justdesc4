@@ -5,8 +5,6 @@ export function up(knex) {
     table.increments("id").primary();
     table.string("link").notNullable();
     table.string("category").notNullable();
-    table.integer("user_id").unsigned().notNullable();
-    table.foreign("user_id").references("users.id");
   });
 }
 

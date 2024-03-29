@@ -1,5 +1,5 @@
 import Category from "../models/Category.js";
-import knex from "../lib/Knex.js";
+import Task from "../models/Task.js";
 
 /**
  * ============================================
@@ -14,19 +14,13 @@ export const createCategory = async (req, res) => {
     if (!category) {
       category = await Category.query().insert({
         link,
+        user_id: req.user.id,
         ...req.body,
       });
-    }
-
-    const userCategory = await knex("category_user")
-      .where({ user_id: req.user.id, category_id: category.id })
-      .first();
-
-    if (!userCategory) {
-      await knex("category_user").insert({
-        user_id: req.user.id,
-        category_id: category.id,
-      });
+    } else {
+      if (category) {
+        return res.redirect(`/?msg=This category already exists.`);
+      }
     }
 
     res.redirect(`/${category.link}`);
@@ -48,27 +42,11 @@ export const deleteCategory = async (req, res) => {
     const categoryId = req.params.id;
     const category = await Category.query().findById(categoryId);
 
-    if (category) {
-      const userCategory = await knex("category_user")
-        .where({ user_id: req.user.id, category_id: category.id })
-        .first();
-
-      if (userCategory) {
-        await knex("category_user")
-          .where({ user_id: req.user.id, category_id: category.id })
-          .delete();
-        await knex("tasks")
-          .where({ category_id: category.id, user_id: req.user.id })
-          .delete();
-
-        const userCategories = await knex("category_user").where({
-          category_id: category.id,
-        });
-
-        if (userCategories.length === 0) {
-          await Category.query().deleteById(category.id);
-        }
-      }
+    if (category && category.user_id === req.user.id) {
+      await Task.query()
+        .where({ category_id: category.id, user_id: req.user.id })
+        .delete();
+      await Category.query().deleteById(category.id);
 
       res.redirect("/?msg=Category deleted successfully!");
     } else {

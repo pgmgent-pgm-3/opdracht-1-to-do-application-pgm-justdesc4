@@ -12,10 +12,7 @@ import Category from "../models/Category.js";
  * ============================================
  */
 export const home = async (req, res) => {
-  const categories = await Category.query()
-    .join("category_user", "categories.id", "category_user.category_id")
-    .where("category_user.user_id", req.user.id);
-
+  const categories = await Category.query().where("user_id", req.user.id);
   const tasks = await Task.query().where("user_id", req.user.id);
 
   const message = req.query.msg;
@@ -35,19 +32,11 @@ export const home = async (req, res) => {
 export const page = async (req, res) => {
   const link = req.params.link || parseInt(req.params.categoryId);
 
-  const categories = await Category.query()
-    .join("category_user", "categories.id", "category_user.category_id")
-    .where("category_user.user_id", req.user.id);
+  const categories = await Category.query().where("user_id", req.user.id);
 
   let category =
-    (await Category.query()
-      .join("category_user", "categories.id", "category_user.category_id")
-      .where("category_user.user_id", req.user.id)
-      .findOne({ link })) ||
-    (await Category.query()
-      .join("category_user", "categories.id", "category_user.category_id")
-      .where("category_user.user_id", req.user.id)
-      .findById(link));
+    (await Category.query().where("user_id", req.user.id).findOne({ link })) ||
+    (await Category.query().where("user_id", req.user.id).findById(link));
 
   if (link === 1) {
     category = await Category.query().findById(link);
@@ -84,15 +73,28 @@ export const page = async (req, res) => {
  * ============================================
  */
 export const editPage = async (req, res) => {
-  const taskId = req.params.taskId;
-  const task = await Task.query().findById(taskId);
-  if (!task) {
-    return res.status(404).send("Task not found!");
+  if (req.path.includes("categories")) {
+    const categoryId = req.params.categoryId;
+    const category = await Category.query().findById(categoryId);
+    if (!category) {
+      return res.status(404).send("Category not found!");
+    }
+
+    const flash = req.flash || "";
+
+    res.render("editCategory", { category, flash, loggedIn: req.loggedIn });
+    return;
+  } else if (req.path.includes("tasks")) {
+    const taskId = req.params.taskId;
+    const task = await Task.query().findById(taskId);
+    if (!task) {
+      return res.status(404).send("Task not found!");
+    }
+
+    const flash = req.flash || "";
+
+    res.render("editTask", { task, flash, loggedIn: req.loggedIn });
   }
-
-  const flash = req.flash || "";
-
-  res.render("editTask", { task, flash, loggedIn: req.loggedIn });
 };
 
 /**

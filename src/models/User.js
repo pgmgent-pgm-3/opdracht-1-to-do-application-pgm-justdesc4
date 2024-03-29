@@ -39,15 +39,11 @@ class User extends Model {
         },
       },
       categories: {
-        relation: Model.ManyToManyRelation,
+        relation: Model.HasManyRelation,
         modelClass: Category,
         join: {
           from: "users.id",
-          through: {
-            from: "categories_users.user_id",
-            to: "categories_users.category_id",
-          },
-          to: "categories.id",
+          to: "categories.user_id",
         },
       },
     };

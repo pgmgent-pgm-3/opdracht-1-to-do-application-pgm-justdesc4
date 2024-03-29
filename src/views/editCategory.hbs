@@ -4,15 +4,15 @@
 <main>
     <section class="edit-page">
         <div class="container">
-            <h1>Edit Task</h1>
+            <h1>Edit Category</h1>
             {{#if flash.message}}
                 <div class="alert {{flash.type}}">
                     {{flash.message}}
                 </div>
             {{/if}}
-            <form method="POST" action="/tasks/edit/{{task.id}}">
+            <form method="POST" action="/categories/edit/{{task.id}}">
                 <input type="hidden" name="method" value="PUT">
-                <input type="text" name="task" value="{{task.task}}" required>
+                <input type="text" name="category" value="{{category.category}}" required>
                 {{#editButton}}{{/editButton}}
             </form>
         </div>

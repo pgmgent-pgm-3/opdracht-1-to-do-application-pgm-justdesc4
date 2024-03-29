@@ -73,6 +73,7 @@ app.get("/logout", logout);
 app.get("/", jwtAuth, home);
 app.get("/:link", jwtAuth, page);
 app.get("/tasks/edit/:taskId", jwtAuth, editPage);
+app.get("/categories/edit/:categoryId", jwtAuth, editPage);
 
 // Tasks API
 app.get("/api/task/:id", jwtAuth, getTask);

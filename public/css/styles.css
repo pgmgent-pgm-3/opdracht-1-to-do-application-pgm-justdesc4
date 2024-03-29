@@ -368,44 +368,44 @@ FINISHED TASKS
 
 /*
 ===================================
-EDIT TASK PAGE
+EDIT PAGE
 ===================================
 */
 
-.edit-task .container {
+.edit-page .container {
   width: 70rem;
   max-width: 100%;
   text-align: center;
   margin: 12rem auto;
 }
 
-.edit-task h1 {
+.edit-page h1 {
   font-size: 2rem;
   margin-bottom: 2rem;
 }
 
-.edit-task form {
+.edit-page form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.edit-task form input {
+.edit-page form input {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.edit-task form button {
+.edit-page form button {
   width: 5rem;
   border-radius: 0.5rem;
 }
 
-.edit-task form button:hover {
+.edit-page form button:hover {
   background-color: hsl(248, 79%, 49%);
 }
 
-.edit-task form button img {
+.edit-page form button img {
   margin: 0 auto;
 }
 

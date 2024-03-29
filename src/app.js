@@ -17,6 +17,9 @@ import {
 import {
   getCategories,
   getCategory,
+  createCategory,
+  updateCategory,
+  deleteCategory,
 } from "./controllers/api/categoriesController.js";
 import { getUsers, getUser } from "./controllers/api/userController.js";
 
@@ -29,7 +32,7 @@ import {
   loginPage,
 } from "./controllers/controller.js";
 import { handlePostTasks } from "./controllers/tasksController.js";
-import { createCategory } from "./controllers/categoriesController.js";
+import { handlePostCategories } from "./controllers/categoriesController.js";
 import { login, register, logout } from "./controllers/authController.js";
 
 // Lib
@@ -72,11 +75,11 @@ app.get("/:link", jwtAuth, page);
 app.get("/tasks/edit/:taskId", jwtAuth, editPage);
 
 // Tasks API
-app.get("/api/task/:id", getTask);
-app.get("/api/tasks", getTasks);
-app.post("/api/task", createTask);
-app.put("/api/task/:id", updateTask);
-app.delete("/api/task/:id", deleteTask);
+app.get("/api/task/:id", jwtAuth, getTask);
+app.get("/api/tasks", jwtAuth, getTasks);
+app.post("/api/task", jwtAuth, createTask);
+app.put("/api/task/:id", jwtAuth, updateTask);
+app.delete("/api/task/:id", jwtAuth, deleteTask);
 
 // Handle tasks form
 app.post(
@@ -89,11 +92,14 @@ app.post(
 app.post("tasks/edit/:taskId", tasksValidator, handlePostTasks);
 
 // Categories API
-app.get("/api/categories", getCategories);
-app.get("/api/category/:id", getCategory);
+app.get("/api/categories", jwtAuth, getCategories);
+app.get("/api/category/:id", jwtAuth, getCategory);
+app.post("/api/category", jwtAuth, createCategory);
+app.put("/api/category/:id", jwtAuth, updateCategory);
+app.delete("/api/category/:id", jwtAuth, deleteCategory);
 
 // Handle categories form
-app.post("/categories", jwtAuth, createCategory);
+app.post("/categories/:id", jwtAuth, handlePostCategories);
 
 // Register form
 app.post("/register", registerValidator, register, loginPage);

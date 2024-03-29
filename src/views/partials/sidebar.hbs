@@ -6,16 +6,28 @@
         <a {{#if (eq 1 @root.categoryId)}}class="page-pointer"{{/if}} href="/">
           Default
         </a>
+      </li>
       {{#each categories}}
-          <li>
-            <a {{#if (eq this.id @root.categoryId)}}class="page-pointer"{{/if}} href="/{{this.link}}">
+          <li {{#if (eq this.id @root.categoryId)}}class="page-pointer"{{/if}}>
+            <a href="/{{this.link}}">
               {{this.category}}
             </a>
+            <div class="categories__btns">
+              <a href="/categories/edit/{{this.id}}">
+                <img src="/images/edit-icon.svg" alt="Edit" />
+              </a>
+            <form action="/categories/{{this.id}}" method="POST">
+              <input type="hidden" name="method" value="DELETE">
+              <button>
+                <img src="/images/delete-icon.svg" alt="Trash icon" />
+              </button>
+            </form>
+            </div>
           </li>
       {{/each}}
     </ul>
   </nav>
-  <form action="/categories" method="POST">
+  <form action="/categories/id" method="POST">
     <input
         type="text"
         name="category"

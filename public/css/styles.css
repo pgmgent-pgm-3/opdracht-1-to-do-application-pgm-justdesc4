@@ -203,7 +203,6 @@ SIDE-MENU
 
 .side-menu a {
   display: inline-block;
-  width: 100%;
   padding: 0.5rem;
   padding-left: 1.5rem;
 }
@@ -225,6 +224,34 @@ SIDE-MENU
 .side-menu form button {
   padding: 0 2rem;
   border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.categories li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.categories li:first-child a {
+  width: 100%;
+  padding: 1.5rem 1.5rem;
+}
+
+.categories li button {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 1.45rem;
+  margin-right: 1rem;
+}
+
+.categories li button img,
+.categories li a img {
+  width: 1.75rem;
+}
+
+.categories__btns {
+  display: flex;
+  align-items: center;
 }
 
 /*

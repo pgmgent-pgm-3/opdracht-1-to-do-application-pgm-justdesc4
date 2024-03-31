@@ -8,6 +8,24 @@ import Category from "../models/Category.js";
 
 /**
  * ============================================
+ * Render register page
+ * ============================================
+ */
+export const registerPage = (req, res) => {
+  res.render("register");
+};
+
+/**
+ * ============================================
+ * Render login page
+ * ============================================
+ */
+export const loginPage = (req, res) => {
+  res.render("login");
+};
+
+/**
+ * ============================================
  * Render home page, category pages
  * ============================================
  */
@@ -34,25 +52,21 @@ export const page = async (req, res) => {
 
   const categories = await Category.query().where("user_id", req.user.id);
 
-  let category =
-    (await Category.query().where("user_id", req.user.id).findOne({ link })) ||
-    (await Category.query().where("user_id", req.user.id).findById(link));
+  const category = (await Category.query()
+    .where("user_id", req.user.id)
+    .findOne({ link })) || { id: link };
 
-  if (link === 1) {
-    category = await Category.query().findById(link);
-  } else if (!category) {
+  if (!category) {
     res.status(404).send("Page not found");
     return;
   }
   const categoryId = category.id;
 
-  let tasks = await Task.query().where({
+  const tasks = await Task.query().where({
     user_id: req.user.id,
     category_id: categoryId,
   });
-  if (categoryId === 1) {
-    tasks = await Task.query().where({ user_id: req.user.id });
-  }
+
   const message = req.query.msg;
   const flash = req.flash || "";
 
@@ -95,22 +109,4 @@ export const editPage = async (req, res) => {
 
     res.render("editTask", { task, flash, loggedIn: req.loggedIn });
   }
-};
-
-/**
- * ============================================
- * Render register page
- * ============================================
- */
-export const registerPage = (req, res) => {
-  res.render("register");
-};
-
-/**
- * ============================================
- * Render login page
- * ============================================
- */
-export const loginPage = (req, res) => {
-  res.render("login");
 };

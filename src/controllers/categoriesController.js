@@ -40,7 +40,6 @@ export const createCategory = async (req, res) => {
 export const updateCategory = async (req, res) => {
   try {
     const categoryId = req.params.id;
-    console.log(req.params.id);
     const category = await Category.query().findById(parseInt(categoryId));
 
     if (category && category.user_id === req.user.id) {

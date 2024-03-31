@@ -188,6 +188,7 @@ export const deleteTask = async (req, res) => {
  */
 export const handlePostTasks = async (req, res, next) => {
   const method = req.body.method;
+  delete req.body.method;
 
   switch (method) {
     case "DELETE":

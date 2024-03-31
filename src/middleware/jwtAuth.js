@@ -8,7 +8,8 @@ export default async (req, res, next) => {
     const userToken = req.cookies.user || req.headers.user;
 
     if (!userToken) {
-      const message = "Sorry, you need to be logged in to use the app.";
+      const message =
+        "Sorry, having an account is necessary to use the app. Please login or register.";
       if (req.path.startsWith("/api/")) {
         return res.status(401).json({ message });
       } else {

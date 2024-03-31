@@ -2,7 +2,7 @@
     {{> header}}
 </header>
 <main>
-    <section class="login">
+    <section class="login-register">
     <div class="container">
         <h1>Register now.</h1>
         {{#if flash.message}}
@@ -10,6 +10,9 @@
                 {{flash.message}}
             </div>
         {{/if}}
+        <div>
+            <p>Already have an account? <a href="/login">Login here.</a></p>
+        </div>
         <form action="/register" method="POST">
             <input type="text" name="firstname" placeholder="Firstname.">
             <input type="text" name="lastname" placeholder="Lastname.">

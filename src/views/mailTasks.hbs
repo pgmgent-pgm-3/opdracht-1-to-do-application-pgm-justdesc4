@@ -1,0 +1,17 @@
+<header>
+    {{> header}}
+</header>
+<main>
+    <section class="edit-page">
+        <div class="container">
+            <h1>Enter email:</h1>
+            <p>
+                Enter the email address where you want to receive the tasks list. - <strong>category:</strong> <em>{{ category.category }}</em>.
+            </p>
+            <form method="POST" action="/tasks/mail/{{ category.id }}">
+                <input type="email" name="email" placeholder="Email address:" required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+</main>

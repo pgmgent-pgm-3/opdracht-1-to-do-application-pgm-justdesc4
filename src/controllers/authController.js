@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
+import mailTransport from "../lib/mailtransporter.js";
+
 /**
  * ============================================
  * Register form
@@ -49,6 +51,17 @@ export const register = async (req, res) => {
       lastname,
       email,
       password: hashedPassword,
+    });
+
+    await mailTransport.sendMail({
+      from: "noreply@justdoit.be",
+      to: email,
+      subject: "Registration successful!",
+      template: "default",
+      context: {
+        title: "Registration successful!",
+        message: "You have successfully registered!",
+      },
     });
 
     res.redirect("/login");
@@ -104,6 +117,19 @@ export const login = async (req, res) => {
       };
       return res.render("login", { flash: req.flash });
     }
+
+    await mailTransport.sendMail({
+      from: "noreply@justdoit.be",
+      to: email,
+      subject: "There has been logged in to your account!",
+      template: "default",
+      context: {
+        title: "There was a login attempt to your account!",
+        message:
+          "If this was not you, please contact us immediately!" +
+          `<br><a style="color: white;" href="mailto:contact@justdoit.be">contact@justdoit.be</a>`,
+      },
+    });
 
     const token = jwt.sign(
       {

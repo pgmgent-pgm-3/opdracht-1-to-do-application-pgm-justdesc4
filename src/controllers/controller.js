@@ -110,3 +110,26 @@ export const editPage = async (req, res) => {
     res.render("editTask", { task, flash, loggedIn: req.loggedIn });
   }
 };
+
+/**
+ * ============================================
+ * Render mail tasks page
+ * ============================================
+ */
+export const mailPage = async (req, res) => {
+  const tasks = await Task.query().where("user_id", req.user.id);
+  const category = await Category.query().findOne({
+    id: req.params.categoryId,
+  });
+
+  const message = req.query.msg;
+  const flash = req.flash || "";
+
+  res.render("mailTasks", {
+    tasks,
+    category,
+    message,
+    flash,
+    loggedIn: req.loggedIn,
+  });
+};

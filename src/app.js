@@ -30,10 +30,12 @@ import {
   editPage,
   registerPage,
   loginPage,
+  mailPage,
 } from "./controllers/controller.js";
 import { handlePostTasks } from "./controllers/tasksController.js";
 import { handlePostCategories } from "./controllers/categoriesController.js";
 import { login, register, logout } from "./controllers/authController.js";
+import { sendTasksMail } from "./controllers/mailController.js";
 
 // Lib
 import handlebarshelpers from "./lib/handlebarshelpers.js";
@@ -71,9 +73,10 @@ app.get("/register", registerPage);
 app.get("/login", loginPage);
 app.get("/logout", logout);
 app.get("/", jwtAuth, home);
-app.get("/:link", jwtAuth, page);
 app.get("/tasks/edit/:taskId", jwtAuth, editPage);
 app.get("/categories/edit/:categoryId", jwtAuth, editPage);
+app.get("/tasks/mail/:categoryId", jwtAuth, mailPage);
+app.get("/:link", jwtAuth, page);
 
 // Tasks API
 app.get("/api/task/:id", jwtAuth, getTask);
@@ -81,6 +84,9 @@ app.get("/api/tasks", jwtAuth, getTasks);
 app.post("/api/task", jwtAuth, createTask);
 app.put("/api/task/:id", jwtAuth, updateTask);
 app.delete("/api/task/:id", jwtAuth, deleteTask);
+
+// Mail tasks form
+app.post("/tasks/mail/:categoryId", jwtAuth, sendTasksMail);
 
 // Handle tasks form
 app.post(

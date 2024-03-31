@@ -1,6 +1,7 @@
 import Task from "../models/Task.js";
 import Category from "../models/Category.js";
 import { validationResult } from "express-validator";
+import mailTransport from "../lib/mailtransporter.js";
 
 /**
  * ============================================
@@ -43,6 +44,17 @@ export const createTask = async (req, res, next) => {
 
     if (!task) {
       task = await Task.query().insert(taskData);
+
+      await mailTransport.sendMail({
+        from: "noreply@justdoit.be",
+        to: req.user.email,
+        subject: "Task created!",
+        template: "default",
+        context: {
+          title: "Task created!",
+          message: `The task "${task.task}" has been created successfully!`,
+        },
+      });
     } else {
       req.flash = {
         type: "danger",

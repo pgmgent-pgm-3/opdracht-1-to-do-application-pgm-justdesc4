@@ -19,6 +19,7 @@
     <section class="main-content">
         <div class="container">
             {{> form}}
+            <a class="email-btn" href="/tasks/mail/{{@root.categoryId}}">E-mail all tasks</a>
             <div id="tasks" class="tasks">
                 {{#unless tasks}}
                     <p class="no-tasks">You have no tasks yet. Add some!</p>

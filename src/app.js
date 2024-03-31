@@ -101,6 +101,7 @@ app.delete("/api/category/:id", jwtAuth, deleteCategory);
 
 // Handle categories form
 app.post("/categories/:id", jwtAuth, handlePostCategories);
+app.post("/categories/edit/:id", jwtAuth, handlePostCategories);
 
 // Register form
 app.post("/register", registerValidator, register, loginPage);

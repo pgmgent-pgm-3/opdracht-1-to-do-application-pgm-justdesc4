@@ -34,6 +34,37 @@ export const createCategory = async (req, res) => {
 
 /**
  * ============================================
+ * Update category
+ * ============================================
+ */
+export const updateCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+    console.log(req.params.id);
+    const category = await Category.query().findById(parseInt(categoryId));
+
+    if (category && category.user_id === req.user.id) {
+      const updatedData = {
+        category: req.body.category,
+        link: req.body.category.toLowerCase().replace(/ /g, "-"),
+      };
+      await category.$query().patch(updatedData);
+      res.redirect(`/${category.link}?msg=Category updated successfully!`);
+    } else {
+      res.redirect(
+        `/?msg=Sorry, we were unable to update the category. Please try again!`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    res.redirect(
+      `/?msg=Sorry, we've encountered an error with our server. Please try again!`
+    );
+  }
+};
+
+/**
+ * ============================================
  * Delete a category
  * ============================================
  */
@@ -69,6 +100,7 @@ export const deleteCategory = async (req, res) => {
  */
 export const handlePostCategories = async (req, res) => {
   const method = req.body.method;
+  delete req.body.method;
 
   switch (method) {
     case "DELETE":

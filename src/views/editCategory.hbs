@@ -10,7 +10,7 @@
                     {{flash.message}}
                 </div>
             {{/if}}
-            <form method="POST" action="/categories/edit/{{task.id}}">
+            <form method="POST" action="/categories/edit/{{category.id}}">
                 <input type="hidden" name="method" value="PUT">
                 <input type="text" name="category" value="{{category.category}}" required>
                 {{#editButton}}{{/editButton}}

@@ -5,35 +5,47 @@ dotenv.config();
 
 export default async (req, res, next) => {
   try {
-    const userToken = req.cookies.user;
+    const userToken = req.cookies.user || req.headers.user;
 
-    if (!userToken && req.path === "/") {
-      return res.render("login");
-    } else if (!userToken) {
-      req.flash = {
-        type: "danger",
-        message: "Sorry, you need to be logged in to use the app.",
-      };
-
-      return res.render("login", { flash: req.flash });
+    if (!userToken) {
+      const message = "Sorry, you need to be logged in to use the app.";
+      if (req.path.startsWith("/api/")) {
+        return res.status(401).json({ message });
+      } else {
+        req.flash = {
+          type: "danger",
+          message,
+        };
+        return res.render("login", { flash: req.flash });
+      }
     }
 
     const userData = jwt.verify(userToken, process.env.TOKEN_SALT);
     if (!userData) {
-      req.flash = {
-        type: "danger",
-        message: "User data not found!",
-      };
-      return res.render("login", { flash: req.flash });
+      const message = "User data not found!";
+      if (req.path.startsWith("/api/")) {
+        return res.status(401).json({ message });
+      } else {
+        req.flash = {
+          type: "danger",
+          message,
+        };
+        return res.render("login", { flash: req.flash });
+      }
     }
 
     const user = await User.query().findById(userData.id);
     if (!user) {
-      req.flash = {
-        type: "danger",
-        message: "User not found!",
-      };
-      return res.render("login", { flash: req.flash });
+      const message = "User not found!";
+      if (req.path.startsWith("/api/")) {
+        return res.status(401).json({ message });
+      } else {
+        req.flash = {
+          type: "danger",
+          message,
+        };
+        return res.render("login", { flash: req.flash });
+      }
     }
 
     req.user = user;
@@ -41,6 +53,10 @@ export default async (req, res, next) => {
 
     return next();
   } catch (e) {
-    res.redirect("/login");
+    if (req.path.startsWith("/api/")) {
+      return res.status(500).json({ message: "Internal Server Error" });
+    } else {
+      return res.redirect("/login");
+    }
   }
 };

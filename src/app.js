@@ -21,7 +21,7 @@ import {
   updateCategory,
   deleteCategory,
 } from "./controllers/api/categoriesController.js";
-import { getUsers, getUser } from "./controllers/api/userController.js";
+import { getUser } from "./controllers/api/userController.js";
 
 // Default Controllers
 import {
@@ -110,8 +110,7 @@ app.post("/register", registerValidator, register, loginPage);
 app.post("/login", loginValidator, login);
 
 // Users API
-app.get("/api/users", getUsers);
-app.get("/api/user/:id", getUser);
+app.get("/api/user/:id", jwtAuth, getUser);
 
 // Port
 app.listen(process.env.PORT, () => {

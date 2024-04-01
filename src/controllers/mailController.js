@@ -30,10 +30,10 @@ export const sendTasksMail = async (req, res) => {
       template: "default",
       context: {
         title: "Your tasks from " + category.category + " category.",
-        message: `Hello ${user.firstname} ${user.lastname}, <br>
-          Here are the tasks you have requested: <br>
-          <br>${tasks.map((task) => task.task).join("<br>")} <br>
-          <br>Have a nice day!`,
+        message: `Hello, <br>
+                  <br>Here are the tasks you have requested: <br>
+                  <br>${tasks.map((task) => `- ${task.task}`).join("<br>")} <br>
+                  <br>Have a nice day!`,
       },
     });
 

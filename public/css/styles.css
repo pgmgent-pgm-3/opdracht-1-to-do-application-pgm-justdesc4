@@ -56,6 +56,11 @@ button {
   padding: 0.25rem 0.75rem;
   height: 2.5rem;
   background-color: #5a44ea;
+  color: white;
+}
+
+button:hover {
+  color: gray;
 }
 
 button img,
@@ -226,6 +231,10 @@ SIDE-MENU
   border-radius: 0 0.5rem 0.5rem 0;
 }
 
+.side-menu form button:hover {
+  background-color: hsl(248, 79%, 49%);
+}
+
 .categories li {
   display: flex;
   align-items: center;
@@ -246,7 +255,7 @@ SIDE-MENU
 
 .categories li button img,
 .categories li a img {
-  width: 1.75rem;
+  width: 1.6rem;
 }
 
 .categories__btns {
@@ -306,9 +315,17 @@ form select {
 }
 
 .email-btn {
+  text-align: center;
+}
+
+.email-btn a {
   background-color: hsl(248, 79%, 49%);
   border-radius: 0.5rem;
   padding: 0.25rem 0.75rem;
+}
+
+.email-btn a:hover {
+  background-color: hsl(248, 79%, 39%);
 }
 
 .tasks {

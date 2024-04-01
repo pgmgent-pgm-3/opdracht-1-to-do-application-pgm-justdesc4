@@ -12,6 +12,15 @@ function registerListeners() {
     url.search = "";
     window.history.replaceState({}, "", url);
   });
+
+  $background.addEventListener("click", () => {
+    $popup.classList.add("hidden");
+    $background.classList.add("hidden");
+
+    const url = new URL(window.location.href);
+    url.search = "";
+    window.history.replaceState({}, "", url);
+  });
 }
 
 registerListeners();

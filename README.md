@@ -21,6 +21,6 @@ This is my first full serverside rendered project, all feedback is welcome!
 
 - Export task list to email
 
-### Author
+## Author
 
 Justin Descan

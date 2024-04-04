@@ -231,10 +231,6 @@ SIDE-MENU
   border-radius: 0 0.5rem 0.5rem 0;
 }
 
-.side-menu form button:hover {
-  background-color: hsl(248, 79%, 49%);
-}
-
 .categories li {
   display: flex;
   align-items: center;
